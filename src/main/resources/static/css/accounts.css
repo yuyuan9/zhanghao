@@ -1,0 +1,476 @@
+/* 账号商城页面样式 */
+.page-header {
+    background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.page-header h1 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.page-header p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* 商城布局 */
+.account-shop {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+
+.account-shop .container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+}
+
+/* 侧边栏样式 */
+.shop-sidebar {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    align-self: start;
+    position: sticky;
+    top: 20px;
+}
+
+.filter-section {
+    margin-bottom: 25px;
+}
+
+.filter-section:last-child {
+    margin-bottom: 0;
+}
+
+.filter-section h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 分类筛选 */
+.category-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category-filter a {
+    color: #666;
+    text-decoration: none;
+    padding: 6px 0;
+    transition: all 0.3s ease;
+}
+
+.category-filter a:hover {
+    color: #4a6bff;
+}
+
+.category-filter a.active {
+    color: #4a6bff;
+    font-weight: 500;
+}
+
+/* 价格筛选 */
+.price-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price-inputs input {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.price-inputs span {
+    color: #999;
+}
+
+/* 状态筛选 */
+.status-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    width: 16px;
+    height: 16px;
+}
+
+/* 商城内容区 */
+.shop-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 商城头部 */
+.shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* 搜索栏 */
+.search-bar {
+    display: flex;
+    width: 300px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+
+.search-bar button {
+    padding: 0 15px;
+    background-color: #4a6bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #3a5bef;
+}
+
+/* 排序筛选 */
+.sort-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-filter span {
+    color: #666;
+}
+
+.sort-filter a {
+    color: #666;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.sort-filter a:hover {
+    color: #4a6bff;
+    background-color: #f0f4ff;
+}
+
+.sort-filter a.active {
+    color: #4a6bff;
+    background-color: #f0f4ff;
+    font-weight: 500;
+}
+
+/* 账号网格 */
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* 账号卡片 */
+.account-card {
+    position: relative;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.account-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.account-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #ff4a6b 0%, #ff6b4a 100%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.account-image {
+    height: 180px;
+    overflow: hidden;
+}
+
+.account-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.account-card:hover .account-image img {
+    transform: scale(1.05);
+}
+
+.account-info {
+    padding: 20px;
+}
+
+.account-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.account-desc {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    height: 42px;
+    overflow: hidden;
+}
+
+.account-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.account-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ff4a6b;
+}
+
+.account-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.account-sales, .account-stock {
+    font-size: 12px;
+    color: #999;
+}
+
+.account-stock {
+    position: relative;
+    padding-left: 12px;
+}
+
+.account-stock::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+}
+
+.account-stock.stock-low::before {
+    background-color: #FFC107;
+}
+
+.account-stock.stock-critical::before {
+    background-color: #F44336;
+}
+
+/* 当库存为0时的样式 */
+.account-card.sold-out .account-image {
+    opacity: 0.7;
+}
+
+.account-card.sold-out .account-badge {
+    background: linear-gradient(135deg, #999 0%, #666 100%);
+}
+
+.account-card.sold-out .btn {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+.account-card.sold-out::after {
+    content: '已售罄';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    background-color: rgba(244, 67, 54, 0.8);
+    color: white;
+    padding: 5px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.btn-sm {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 5px;
+}
+
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: white;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.pagination a.active {
+    background-color: #4a6bff;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #f0f4ff;
+    color: #4a6bff;
+}
+
+.pagination a.next {
+    width: auto;
+    padding: 0 15px;
+}
+
+.pagination a.next i {
+    margin-left: 5px;
+}
+
+/* CTA部分 */
+.cta {
+    background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.cta h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.cta p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.cta .btn {
+    background-color: white;
+    color: #4a6bff;
+}
+
+.cta .btn:hover {
+    background-color: #f0f4ff;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .account-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .account-shop .container {
+        grid-template-columns: 220px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .account-shop .container {
+        grid-template-columns: 1fr;
+    }
+    
+    .shop-sidebar {
+        margin-bottom: 20px;
+        position: static;
+    }
+    
+    .shop-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .search-bar {
+        width: 100%;
+    }
+    
+    .sort-filter {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 576px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pagination a {
+        width: 35px;
+        height: 35px;
+    }
+} 

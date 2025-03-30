@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="账号易购 - 安全可靠的账号交易平台，提供游戏账号、社交媒体账号、流媒体账号等多种账号交易服务">
+    <meta name="keywords" content="账号交易, 游戏账号, 社交媒体账号, 流媒体账号, 账号购买">
+    <title>账号易购 - 安全可靠的账号交易平台</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+<section class="hero">
+    <div class="slider">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=400&fit=crop"
+                 alt="游戏账号促销">
+            <div class="slide-content">
+                <h2>游戏账号大促销</h2>
+                <p>多款热门游戏账号限时8折优惠，立即选购心仪账号</p>
+                <a href="accounts.html?category=game" class="btn btn-primary">立即查看</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1200&h=400&fit=crop"
+                 alt="流媒体账号">
+            <div class="slide-content">
+                <h2>流媒体账号专区</h2>
+                <p>Netflix、Disney+、HBO Max等多平台账号，尽享高清视听盛宴</p>
+                <a href="accounts.html?category=streaming" class="btn btn-primary">立即查看</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=400&fit=crop"
+                 alt="社交媒体账号">
+            <div class="slide-content">
+                <h2>社交媒体账号</h2>
+                <p>Instagram、Twitter、Facebook等多平台账号，拓展您的社交网络</p>
+                <a href="accounts.html?category=social" class="btn btn-primary">立即查看</a>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- 热门账号部分移到轮播图下方，并增加视觉吸引力 -->
+<section class="featured-accounts">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">热门账号推荐</h2>
+            <a href="accounts.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="account-tabs">
+            <div class="tab-header">
+                <button class="tab-btn active" data-category="all">全部</button>
+                <button class="tab-btn" data-category="game">游戏账号</button>
+                <button class="tab-btn" data-category="streaming">流媒体账号</button>
+                <button class="tab-btn" data-category="social">社交媒体账号</button>
+            </div>
+
+            <div class="account-grid">
+                <div class="account-card" data-category="game">
+                    <div class="account-badge">热销</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=300&h=200&fit=crop"
+                             alt="王者荣耀账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>王者荣耀账号</h3>
+                        <p class="account-desc">100英雄/80皮肤/钻石段位</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥299</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 152</span>
+                                <span class="account-stock">库存 8</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=1" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+
+                <div class="account-card" data-category="streaming">
+                    <div class="account-badge">推荐</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=300&h=200&fit=crop"
+                             alt="Netflix账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>Netflix高级账号</h3>
+                        <p class="account-desc">4K画质/4人同时观看/独立子账号</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥99</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 328</span>
+                                <span class="account-stock">库存 15</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=2" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+
+                <div class="account-card" data-category="social">
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=200&fit=crop"
+                             alt="Instagram账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>Instagram账号</h3>
+                        <p class="account-desc">5000+粉丝/高互动率/优质内容</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥199</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 87</span>
+                                <span class="account-stock stock-low">库存 3</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=3" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+
+                <div class="account-card" data-category="game">
+                    <div class="account-badge">折扣</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=300&h=200&fit=crop"
+                             alt="英雄联盟账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>英雄联盟账号</h3>
+                        <p class="account-desc">全英雄/稀有皮肤/王者段位</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥399</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 95</span>
+                                <span class="account-stock">库存 12</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=4" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+
+                <div class="account-card" data-category="streaming">
+                    <div class="account-badge">热门</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1586899028174-e7098604235b?w=300&h=200&fit=crop"
+                             alt="Disney+账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>Disney+账号</h3>
+                        <p class="account-desc">年付会员/4K画质/多设备</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥89</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 156</span>
+                                <span class="account-stock stock-critical">库存 0</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=5" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+
+                <div class="account-card" data-category="game">
+                    <div class="account-badge">新品</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop"
+                             alt="原神账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>原神账号</h3>
+                        <p class="account-desc">多5星角色/多5星武器/高等级</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥499</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 42</span>
+                                <span class="account-stock">库存 7</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=6" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>安全保障</h3>
+            <p>全平台账号经过严格检测，确保账号状态良好，交易安全有保障。</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <h3>即买即用</h3>
+            <p>支付成功后立即获取账号信息，无需等待，即买即用。</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3>7*24小时客服</h3>
+            <p>专业客服团队全天候在线，随时解决您的问题。</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-undo"></i>
+            </div>
+            <h3>售后保障</h3>
+            <p>账号出现问题，7天内无条件退款或更换，让您无忧购买。</p>
+        </div>
+    </div>
+</section>
+
+<section class="categories">
+    <div class="container">
+        <h2 class="section-title">账号分类</h2>
+        <div class="category-grid">
+            <a href="accounts.html?category=game" class="category-item">
+                <div class="category-icon">
+                    <img src="https://img.icons8.com/color/96/000000/game-controller.png" alt="游戏账号">
+                </div>
+                <h3>游戏账号</h3>
+                <p>王者荣耀、英雄联盟、原神等热门游戏账号</p>
+            </a>
+            <a href="accounts.html?category=social" class="category-item">
+                <div class="category-icon">
+                    <img src="https://img.icons8.com/color/96/000000/facebook-new.png" alt="社交媒体账号">
+                </div>
+                <h3>社交媒体账号</h3>
+                <p>Instagram、Twitter、Facebook等社交平台账号</p>
+            </a>
+            <a href="accounts.html?category=streaming" class="category-item">
+                <div class="category-icon">
+                    <img src="https://img.icons8.com/color/96/000000/netflix.png" alt="流媒体账号">
+                </div>
+                <h3>流媒体账号</h3>
+                <p>Netflix、Disney+、HBO Max等流媒体平台账号</p>
+            </a>
+            <a href="accounts.html?category=other" class="category-item">
+                <div class="category-icon">
+                    <img src="https://img.icons8.com/color/96/000000/more.png" alt="其他账号">
+                </div>
+                <h3>其他账号</h3>
+                <p>教育平台、云存储、办公软件等其他类型账号</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">用户评价</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>账号状态非常好，客服也很耐心解答问题，整体购买体验很满意，推荐给大家！</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">李先生</span>
+                        <span class="author-title">购买了王者荣耀账号</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="用户头像">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p>Netflix账号用了两个月了，一直很稳定，价格也比官方便宜很多，非常划算！</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">张女士</span>
+                        <span class="author-title">购买了Netflix账号</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="用户头像">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>支付过程很简单，USDT转账后几分钟就收到了账号信息，非常方便快捷！</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">王先生</span>
+                        <span class="author-title">购买了Instagram账号</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <h2>开始您的账号交易之旅</h2>
+        <p>注册账号，即可享受安全、便捷的账号购买服务</p>
+        <div class="cta-buttons">
+            <a href="register.html" class="btn btn-primary">立即注册</a>
+            <a href="accounts.html" class="btn btn-secondary">浏览账号</a>
+        </div>
+    </div>
+</section>
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{js/home.js}"></script>
+</body>
+</html> 

@@ -1,0 +1,140 @@
+/* 支付成功页面样式 */
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 400px);
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+
+.success-card {
+    width: 100%;
+    max-width: 700px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 80px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.success-card h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.success-message {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* 订单摘要 */
+.order-summary {
+    background-color: #f8f9ff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e6e9ff;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-item .label {
+    color: #666;
+}
+
+.summary-item .value {
+    font-weight: 600;
+    color: #333;
+}
+
+/* 账号访问选项 */
+.account-access {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.account-access h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.account-access p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.access-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.access-options .btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.access-options .btn i {
+    margin-right: 8px;
+}
+
+/* 下一步选项 */
+.next-steps h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.steps-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.steps-buttons .btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.steps-buttons .btn i {
+    margin-right: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .success-card {
+        padding: 30px 20px;
+        margin: 0 15px;
+    }
+    
+    .access-options,
+    .steps-buttons {
+        flex-direction: column;
+    }
+    
+    .access-options .btn,
+    .steps-buttons .btn {
+        width: 100%;
+    }
+} 

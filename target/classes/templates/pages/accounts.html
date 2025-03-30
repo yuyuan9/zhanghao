@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="账号易购商城 - 浏览并购买各类游戏账号、社交媒体账号、流媒体账号等">
+    <meta name="keywords" content="账号交易, 游戏账号, 社交媒体账号, 流媒体账号, 账号购买">
+    <title>账号商城 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/accounts.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>账号商城</h1>
+            <p>浏览并购买各类账号，安全交易，即买即用</p>
+        </div>
+    </section>
+
+    <section class="account-shop">
+        <div class="container">
+            <div class="shop-sidebar">
+                <div class="filter-section">
+                    <h3>账号分类</h3>
+                    <div class="category-filter">
+                        <a href="#" class="active" data-category="all">全部账号</a>
+                        <a href="#" data-category="game">游戏账号</a>
+                        <a href="#" data-category="social">社交媒体账号</a>
+                        <a href="#" data-category="streaming">流媒体账号</a>
+                        <a href="#" data-category="other">其他账号</a>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3>价格区间</h3>
+                    <div class="price-filter">
+                        <div class="price-inputs">
+                            <input type="number" id="min-price" placeholder="最低价">
+                            <span>-</span>
+                            <input type="number" id="max-price" placeholder="最高价">
+                        </div>
+                        <button id="price-filter-btn" class="btn btn-sm">确定</button>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h3>账号状态</h3>
+                    <div class="status-filter">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked> 有库存
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox"> 促销中
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox"> 新上架
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="shop-content">
+                <div class="shop-header">
+                    <div class="search-bar">
+                        <input type="text" placeholder="搜索账号...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="sort-filter">
+                        <span>排序: </span>
+                        <a href="#" class="active" data-sort="default">默认</a>
+                        <a href="#" data-sort="price-asc">价格 ↑</a>
+                        <a href="#" data-sort="price-desc">价格 ↓</a>
+                        <a href="#" data-sort="sales">销量</a>
+                    </div>
+                </div>
+                <div class="account-grid">
+                    <div class="account-card" data-category="game">
+                        <div class="account-badge">热销</div>
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=300&h=200&fit=crop" alt="王者荣耀账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>王者荣耀账号</h3>
+                            <p class="account-desc">100英雄/80皮肤/钻石段位</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥299</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 152</span>
+                                    <span class="account-stock">库存 8</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=1" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="streaming">
+                        <div class="account-badge">推荐</div>
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=300&h=200&fit=crop" alt="Netflix账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>Netflix高级账号</h3>
+                            <p class="account-desc">4K画质/4人同时观看/独立子账号</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥99</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 328</span>
+                                    <span class="account-stock">库存 15</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=2" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="social">
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=200&fit=crop" alt="Instagram账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>Instagram账号</h3>
+                            <p class="account-desc">5000+粉丝/高互动率/优质内容</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥199</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 87</span>
+                                    <span class="account-stock stock-low">库存 3</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=3" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="game">
+                        <div class="account-badge">折扣</div>
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=300&h=200&fit=crop" alt="英雄联盟账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>英雄联盟账号</h3>
+                            <p class="account-desc">全英雄/稀有皮肤/王者段位</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥399</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 95</span>
+                                    <span class="account-stock">库存 12</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=4" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="streaming">
+                        <div class="account-badge">热门</div>
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1586899028174-e7098604235b?w=300&h=200&fit=crop" alt="Disney+账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>Disney+账号</h3>
+                            <p class="account-desc">年付会员/4K画质/多设备</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥89</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 156</span>
+                                    <span class="account-stock stock-critical">库存 0</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=5" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="game">
+                        <div class="account-badge">新品</div>
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop" alt="原神账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>原神账号</h3>
+                            <p class="account-desc">多5星角色/多5星武器/高等级</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥499</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 42</span>
+                                    <span class="account-stock">库存 7</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=6" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="social">
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=300&h=200&fit=crop" alt="Twitter账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>Twitter账号</h3>
+                            <p class="account-desc">3000+粉丝/已认证/高活跃度</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥249</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 63</span>
+                                    <span class="account-stock">库存 5</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=7" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="streaming">
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=300&h=200&fit=crop" alt="Spotify账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>Spotify高级账号</h3>
+                            <p class="account-desc">无广告/高音质/支持离线下载</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥79</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 211</span>
+                                    <span class="account-stock stock-low">库存 2</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=8" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                    <div class="account-card" data-category="game">
+                        <div class="account-badge">热销</div>
+                        <div class="account-image">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=200&fit=crop" alt="Steam账号">
+                        </div>
+                        <div class="account-info">
+                            <h3>Steam账号</h3>
+                            <p class="account-desc">200+游戏/多款3A大作/稀有徽章</p>
+                            <div class="account-meta">
+                                <span class="account-price">¥599</span>
+                                <div class="account-stats">
+                                    <span class="account-sales">已售 78</span>
+                                    <span class="account-stock stock-critical">库存 0</span>
+                                </div>
+                            </div>
+                            <a href="account-detail.html?id=9" class="btn btn-primary btn-sm">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <a href="#" class="active" data-page="1">1</a>
+                    <a href="#" data-page="2">2</a>
+                    <a href="#" data-page="3">3</a>
+                    <a href="#" class="next" data-page="next">下一页 <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>没有找到您想要的账号？</h2>
+            <p>联系我们的客服，我们将为您定制寻找合适的账号</p>
+            <a href="#" class="btn btn-primary">联系客服</a>
+        </div>
+    </section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{js/main.js}"></script>
+    <script th:src="@{js/accounts.js}"></script>
+</body>
+</html> 

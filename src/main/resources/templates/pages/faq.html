@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="账号易购常见问题解答，了解账号交易、USDT支付、售后服务等相关问题">
+    <meta name="keywords" content="账号交易, 常见问题, USDT支付, 账号购买, 售后服务">
+    <title>常见问题 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/faq.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<section class="page-header">
+    <div class="container">
+        <h1>常见问题</h1>
+        <p>找到您关心的问题答案，如有其他疑问，请随时联系我们</p>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="container">
+        <div class="faq-categories">
+            <div class="category-tabs">
+                <div class="tab active" data-category="all">全部问题</div>
+                <div class="tab" data-category="account">账号相关</div>
+                <div class="tab" data-category="payment">支付相关</div>
+                <div class="tab" data-category="service">售后服务</div>
+                <div class="tab" data-category="other">其他问题</div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" placeholder="搜索问题...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        <div class="faq-list">
+            <!-- 账号相关问题 -->
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <h3>账号是否安全可靠？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        我们平台上的所有账号都经过严格审核和验证，确保账号来源合法、状态正常。每个账号在上架前都会进行多重检查，包括账号状态、绑定情况、违规记录等。</p>
+                    <p>我们还提供7天的售后保障，如果您在使用过程中遇到任何问题，可以随时联系我们的客服团队处理。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <h3>购买账号后如何接收账号信息？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        支付成功后，您将立即在网站上看到账号的详细信息，包括账号、密码以及其他必要的登录信息。同时，这些信息也会发送到您注册时填写的邮箱中。</p>
+                    <p>
+                        您可以在"我的订单"页面随时查看您购买的所有账号信息。为了账号安全，我们建议您在收到账号后立即修改密码。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <h3>账号可以保证多长时间？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        我们对所有账号提供7天的售后保障。在此期间，如果账号出现无法登录、被封禁等问题（非人为原因），我们将免费为您更换同等价值的账号或退款。</p>
+                    <p>对于部分高级账号，我们还提供更长时间的保障服务，具体以账号详情页面的说明为准。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <h3>购买的账号可以修改密码和绑定信息吗？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>是的，我们提供的账号都是可以完全控制的，您可以根据需要修改密码、邮箱、手机号等绑定信息。</p>
+                    <p>为了保障账号安全，我们强烈建议您在购买账号后立即修改密码和绑定信息，以确保账号的唯一控制权。</p>
+                </div>
+            </div>
+
+            <!-- 支付相关问题 -->
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <h3>支持哪些支付方式？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        目前我们仅支持USDT支付，支持TRC20、ERC20和BEP20三种网络。USDT是一种与美元1:1挂钩的稳定币，交易速度快、手续费低、安全性高。</p>
+                    <p>如果您不熟悉USDT支付，可以查看我们的<a href="payment.html">支付说明</a>页面，或联系客服获取帮助。
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <h3>支付后多久能收到账号？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>一般情况下，支付确认后您将立即收到账号信息。USDT支付的确认时间取决于您选择的网络：</p>
+                    <ul>
+                        <li>TRC20网络：通常在1-5分钟内确认</li>
+                        <li>BEP20网络：通常在1-3分钟内确认</li>
+                        <li>ERC20网络：可能需要5-30分钟，在网络拥堵时可能更长</li>
+                    </ul>
+                    <p>如果您已经支付但长时间未收到账号，请联系我们的客服团队处理。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <h3>如何查询我的订单状态？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>您可以在登录状态下，点击右上角的用户头像，进入"我的订单"页面查看所有订单的状态。订单状态包括：</p>
+                    <ul>
+                        <li>待支付：订单已创建但尚未支付</li>
+                        <li>支付中：系统已检测到支付，正在确认中</li>
+                        <li>已完成：支付已确认，账号信息已发送</li>
+                        <li>已取消：订单已取消或已超时</li>
+                    </ul>
+                    <p>您也可以通过订单号联系客服查询订单状态。</p>
+                </div>
+            </div>
+
+            <!-- 售后服务问题 -->
+            <div class="faq-item" data-category="service">
+                <div class="faq-question">
+                    <h3>账号无法登录怎么办？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>如果您购买的账号无法登录，请按照以下步骤处理：</p>
+                    <ol>
+                        <li>确认您输入的账号密码是否正确，注意大小写和空格</li>
+                        <li>检查是否选择了正确的登录区域/服务器</li>
+                        <li>尝试清除浏览器缓存或使用不同的设备登录</li>
+                        <li>如果仍然无法登录，请联系我们的客服团队，提供订单号和问题截图</li>
+                    </ol>
+                    <p>在7天保障期内，如果账号确实存在问题（非人为原因），我们将免费为您更换同等价值的账号或退款。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="service">
+                <div class="faq-question">
+                    <h3>如何申请退款？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>在以下情况下，您可以申请退款：</p>
+                    <ul>
+                        <li>账号在7天保障期内出现无法登录、被封禁等问题（非人为原因）</li>
+                        <li>账号实际情况与描述严重不符</li>
+                        <li>订单支付后长时间未收到账号信息</li>
+                    </ul>
+                    <p>
+                        申请退款请联系我们的客服团队，提供订单号和退款原因。退款将在审核通过后1-3个工作日内退回到您的USDT钱包。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="service">
+                <div class="faq-question">
+                    <h3>如何联系客服？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>您可以通过以下方式联系我们的客服团队：</p>
+                    <ul>
+                        <li>在线客服：网站右下角的客服图标，7*24小时在线</li>
+                        <li>电子邮件：support@accountshop.com</li>
+                        <li>微信客服：扫描网站底部的微信二维码</li>
+                        <li>QQ客服：123456789</li>
+                    </ul>
+                    <p>为了更快解决问题，请在联系客服时提供您的订单号和问题描述。</p>
+                </div>
+            </div>
+
+            <!-- 其他问题 -->
+            <div class="faq-item" data-category="other">
+                <div class="faq-question">
+                    <h3>账号交易是否合法？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        账号交易的合法性因国家、地区和平台规定而异。我们严格遵守相关法律法规，确保平台上的账号交易符合法律要求。</p>
+                    <p>
+                        我们不提供任何违法违规的账号服务，所有账号均来源合法，用户在使用过程中也应遵守相关平台的使用条款。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="other">
+                <div class="faq-question">
+                    <h3>如何成为账号供应商？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>
+                        如果您希望在我们平台上出售账号，请联系我们的商务合作团队。我们对账号供应商有严格的审核要求，包括：</p>
+                    <ul>
+                        <li>账号来源必须合法</li>
+                        <li>能够提供稳定的账号供应</li>
+                        <li>具备良好的售后服务能力</li>
+                    </ul>
+                    <p>通过审核后，您将获得专属的供应商后台，可以自主上架和管理账号。</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="other">
+                <div class="faq-question">
+                    <h3>网站是否支持多语言？</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>目前我们的网站主要支持中文，但我们的客服团队可以提供英文服务。</p>
+                    <p>我们计划在未来增加更多语言支持，包括英文、日文、韩文等，以便更好地服务全球用户。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-support">
+            <h2>没有找到您的问题？</h2>
+            <p>
+                如果您有其他问题或需要更详细的解答，请随时联系我们的客服团队。我们提供7*24小时在线支持，随时为您解答疑问。</p>
+            <div class="support-buttons">
+                <a href="#" class="btn btn-primary"><i class="fas fa-comments"></i> 在线客服</a>
+                <a href="#" class="btn btn-outline"><i class="fas fa-envelope"></i> 发送邮件</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{js/main.js}"></script>
+<script th:src="@{js/faq.js}"></script>
+</body>
+</html> 

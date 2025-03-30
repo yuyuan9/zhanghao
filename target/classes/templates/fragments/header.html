@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="header">
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>账号易购</h1>
+        <p>安全 · 便捷 · 可靠</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a th:href="@{/}" class="active">首页</a></li>
+          <li><a th:href="@{/accounts}">账号商城</a></li>
+          <li><a th:href="@{/orders}">订单查询</a></li>
+          <li><a th:href="@{/payment}">支付说明</a></li>
+          <li><a th:href="@{/faq}">常见问题</a></li>
+          <li><a th:href="@{/about}">关于我们</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <a th:href="@{/login}" class="btn btn-login">登录</a>
+        <a th:href="@{/register}" class="btn btn-register">注册</a>
+      </div>
+    </div>
+  </header>
+</div>
+</body>
+</html>

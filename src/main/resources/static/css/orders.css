@@ -1,0 +1,288 @@
+/* 订单查询页面样式 */
+.page-header {
+    background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.page-header h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.orders-section {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+
+/* 未登录提示样式 */
+.login-prompt {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.login-icon {
+    font-size: 60px;
+    color: #4a6bff;
+    margin-bottom: 20px;
+}
+
+.login-prompt h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.login-prompt p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.login-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* 账号列表样式 */
+.user-accounts {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.accounts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.accounts-title h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.accounts-title p {
+    color: #666;
+}
+
+.account-count {
+    font-weight: 600;
+    color: #4a6bff;
+}
+
+.accounts-filter {
+    display: flex;
+    gap: 15px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    color: #555;
+    font-weight: 500;
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+}
+
+/* 账号表格样式 */
+.accounts-table-container {
+    overflow-x: auto;
+    margin-bottom: 25px;
+}
+
+.accounts-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.accounts-table th {
+    background-color: #f5f7ff;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #e0e6ff;
+}
+
+.accounts-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+.accounts-table tr:hover {
+    background-color: #f9faff;
+}
+
+.password-cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.masked-password {
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.toggle-password-btn {
+    background: none;
+    border: none;
+    color: #4a6bff;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.toggle-password-btn:hover {
+    color: #2a4bdf;
+}
+
+.copy-all-btn {
+    background-color: #f0f4ff;
+    border: 1px solid #d0d8ff;
+    color: #4a6bff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy-all-btn:hover {
+    background-color: #e0e8ff;
+}
+
+.copy-all-btn i {
+    margin-right: 5px;
+}
+
+/* 无账号提示样式 */
+.no-accounts {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.no-accounts-icon {
+    font-size: 60px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.no-accounts h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.no-accounts p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .accounts-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .accounts-filter {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .filter-group select {
+        flex: 1;
+    }
+    
+    .login-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .accounts-table th,
+    .accounts-table td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+    
+    .copy-all-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+/* 添加导出按钮样式 */
+.accounts-actions {
+    display: flex;
+    align-items: center;
+}
+
+.accounts-filter {
+    display: flex;
+    gap: 15px;
+    margin-right: 15px;
+}
+
+.btn-export {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    background-color: #f0f4ff;
+    border: 1px solid #d0d8ff;
+    color: #4a6bff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-export:hover {
+    background-color: #e0e8ff;
+}
+
+.btn-export i {
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .accounts-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    
+    .btn-export {
+        width: 100%;
+        justify-content: center;
+    }
+} 

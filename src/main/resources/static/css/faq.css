@@ -1,0 +1,238 @@
+/* 常见问题页面样式 */
+.page-header {
+    background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.page-header h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.faq-section {
+    padding: 60px 0;
+}
+
+/* 分类和搜索区域 */
+.faq-categories {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.category-tabs {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.tab {
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.tab:hover {
+    background-color: #f0f4ff;
+    color: #4a6bff;
+}
+
+.tab.active {
+    background-color: #4a6bff;
+    color: white;
+}
+
+.search-box {
+    display: flex;
+    width: 300px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+}
+
+.search-box button {
+    background-color: #4a6bff;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-box button:hover {
+    background-color: #3a5bef;
+}
+
+/* FAQ列表样式 */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 60px;
+}
+
+.faq-item {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: #f9f9f9;
+}
+
+.faq-question h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.faq-question i {
+    color: #4a6bff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 25px 20px;
+    display: none;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-answer p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.faq-answer ul, .faq-answer ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.faq-answer li {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+.faq-answer a {
+    color: #4a6bff;
+    text-decoration: underline;
+}
+
+.faq-answer a:hover {
+    color: #3a5bef;
+}
+
+/* 联系支持区域 */
+.contact-support {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contact-support h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.contact-support p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.support-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.support-buttons .btn {
+    padding: 12px 25px;
+}
+
+.support-buttons i {
+    margin-right: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .faq-categories {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        flex: 1 0 auto;
+        text-align: center;
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .support-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .faq-question h3 {
+        font-size: 16px;
+    }
+} 

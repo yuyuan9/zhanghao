@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="账号易购 - 账号详情页，查看账号详细信息并购买">
+    <meta name="keywords" content="账号交易, 游戏账号, 社交媒体账号, 流媒体账号, 账号购买">
+    <title>王者荣耀账号 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/account-detail.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="accounts.html">账号商城</a></li>
+                <li><a href="accounts.html?category=game">游戏账号</a></li>
+                <li>王者荣耀账号</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="account-detail">
+        <div class="container">
+            <div class="account-main">
+                <div class="account-gallery">
+                    <div class="main-image">
+                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&h=600&fit=crop" alt="王者荣耀账号" id="main-image">
+                    </div>
+                    <div class="thumbnail-images">
+                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图1" class="active" onclick="changeImage(this.src)">
+                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图2" onclick="changeImage(this.src)">
+                        <img src="https://images.unsplash.com/photo-1612287230559-e9c4b3d534fe?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图3" onclick="changeImage(this.src)">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图4" onclick="changeImage(this.src)">
+                    </div>
+                </div>
+                <div class="account-info">
+                    <h1>王者荣耀账号 <span class="account-badge">热销</span></h1>
+                    
+                    <div class="account-id-info">
+                        <span class="account-id-label">账号ID:</span>
+                        <span class="account-id-value">WZ123456789</span>
+                    </div>
+                    
+                    <!-- 优化的价格展示部分 -->
+                    <div class="account-price-section">
+                        <div class="price-row">
+                            <div class="price-current">¥299</div>
+                            <div class="price-tags">
+                                <div class="price-original">¥399</div>
+                                <div class="price-discount">7.5折</div>
+                            </div>
+                        </div>
+                        <div class="price-save">立省: ¥100</div>
+                    </div>
+                    
+                    <div class="account-description">
+                        <p>这是一个高级王者荣耀账号，拥有100个英雄和80个皮肤，段位为钻石I。账号已稳定使用3年，绑定了手机和微信，安全可靠。</p>
+                    </div>
+                    
+                    <div class="account-features">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> 拥有多个限定英雄和皮肤</li>
+                            <li><i class="fas fa-check-circle"></i> 战力高，胜率稳定</li>
+                            <li><i class="fas fa-check-circle"></i> 信誉等级高，无违规记录</li>
+                            <li><i class="fas fa-check-circle"></i> 赠送完整的登录信息和使用教程</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 添加购买数量选择器 -->
+                    <div class="quantity-selector">
+                        <span class="quantity-label">购买数量:</span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" id="decrease-quantity">-</button>
+                            <input type="number" id="quantity-input" value="1" min="1" max="8">
+                            <button class="quantity-btn plus" id="increase-quantity">+</button>
+                        </div>
+                        <span class="quantity-stock">库存: 8件</span>
+                    </div>
+                    
+                    <div class="purchase-options">
+                        <div class="agreement-check">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agreement-checkbox" checked>
+                                <span class="checkmark"></span>
+                                我已阅读并承诺遵守本站<a href="javascript:void(0)" id="terms-link">服务协议</a>及<a href="javascript:void(0)" id="after-sales-link">售后协议</a>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary btn-buy" id="buy-now-btn">立即购买</button>
+                    </div>
+                    
+                    <div class="account-notice">
+                        <div class="notice-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>安全保障</span>
+                        </div>
+                        <div class="notice-item">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>7天售后</span>
+                        </div>
+                        <div class="notice-item">
+                            <i class="fas fa-headset"></i>
+                            <span>专业客服</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="account-details-tabs">
+                <div class="tab-header">
+                    <button class="tab-btn active" data-tab="details">账号详情</button>
+                    <button class="tab-btn" data-tab="guarantee">购买保障</button>
+                    <button class="tab-btn" data-tab="faq">常见问题</button>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="details">
+                        <div class="details-section">
+                            <h3>账号详细信息</h3>
+                            <div class="details-grid">
+                                <div class="details-item">
+                                    <span class="details-label">账号等级:</span>
+                                    <span class="details-value">30级</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">贵族等级:</span>
+                                    <span class="details-value">贵族8</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">战令等级:</span>
+                                    <span class="details-value">满级</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">点券数量:</span>
+                                    <span class="details-value">2000点券</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">钻石数量:</span>
+                                    <span class="details-value">500钻石</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">金币数量:</span>
+                                    <span class="details-value">50000金币</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">荣耀积分:</span>
+                                    <span class="details-value">3000积分</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">铭文等级:</span>
+                                    <span class="details-value">满级铭文</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">创建时间:</span>
+                                    <span class="details-value">2020年</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">绑定情况:</span>
+                                    <span class="details-value">已绑定手机和微信</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">信誉等级:</span>
+                                    <span class="details-value">优秀</span>
+                                </div>
+                                <div class="details-item">
+                                    <span class="details-label">违规记录:</span>
+                                    <span class="details-value">无</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="guarantee">
+                        <div class="guarantee-section">
+                            <h3>购买保障说明</h3>
+                            <div class="guarantee-item">
+                                <div class="guarantee-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="guarantee-content">
+                                    <h4>账号真实性保障</h4>
+                                    <p>所有账号均经过平台严格审核，确保账号信息真实有效。如发现账号信息与描述不符，可申请全额退款。</p>
+                                </div>
+                            </div>
+                            <div class="guarantee-item">
+                                <div class="guarantee-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="guarantee-content">
+                                    <h4>账号安全保障</h4>
+                                    <p>账号交易完成后，卖家将无法再次登录或找回账号。我们会提供完整的账号安全交接流程，确保您的账号安全。</p>
+                                </div>
+                            </div>
+                            <div class="guarantee-item">
+                                <div class="guarantee-icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="guarantee-content">
+                                    <h4>7天售后保障</h4>
+                                    <p>购买后7天内，如账号出现无法登录、被找回等问题，可联系客服处理。我们将优先为您解决问题，必要时提供全额退款。</p>
+                                </div>
+                            </div>
+                            <div class="guarantee-item">
+                                <div class="guarantee-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <div class="guarantee-content">
+                                    <h4>专业客服支持</h4>
+                                    <p>7*24小时专业客服团队，随时为您解答问题，提供技术支持和售后服务。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="faq">
+                        <div class="faq-section">
+                            <h3>常见问题</h3>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <i class="fas fa-question-circle"></i>
+                                    <h4>购买后多久可以收到账号？</h4>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>支付成功后，系统会立即自动发送账号信息到您的注册邮箱和个人中心，一般在5分钟内即可收到。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <i class="fas fa-question-circle"></i>
+                                    <h4>如何修改账号密码和绑定信息？</h4>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>购买成功后，我们会提供详细的账号接收教程，包括如何修改密码和绑定信息。您也可以联系客服获取帮助。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <i class="fas fa-question-circle"></i>
+                                    <h4>账号被找回怎么办？</h4>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>我们的账号均经过严格筛选，被找回的可能性极低。如果在7天内出现账号被找回的情况，请立即联系客服，我们会为您处理或提供全额退款。</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <i class="fas fa-question-circle"></i>
+                                    <h4>可以使用哪些支付方式？</h4>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>目前支持支付宝、微信支付、银行卡支付和USDT支付等多种支付方式，您可以选择最方便的方式进行支付。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-accounts">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">相关推荐</h2>
+                <a href="accounts.html?category=game" class="view-all">查看更多 <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="account-grid">
+                <div class="account-card" data-category="game">
+                    <div class="account-badge">折扣</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=300&h=200&fit=crop" alt="英雄联盟账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>英雄联盟账号</h3>
+                        <p class="account-desc">全英雄/稀有皮肤/王者段位</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥399</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 95</span>
+                                <span class="account-stock">库存 12</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=4" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+                
+                <div class="account-card" data-category="game">
+                    <div class="account-badge">新品</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop" alt="原神账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>原神账号</h3>
+                        <p class="account-desc">多5星角色/多5星武器/高等级</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥499</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 42</span>
+                                <span class="account-stock">库存 7</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=6" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+                
+                <div class="account-card" data-category="game">
+                    <div class="account-badge">热门</div>
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=200&fit=crop" alt="Steam账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>Steam账号</h3>
+                        <p class="account-desc">200+游戏/多款3A大作/稀有徽章</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥599</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 78</span>
+                                <span class="account-stock stock-low">库存 3</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=9" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+                
+                <div class="account-card" data-category="game">
+                    <div class="account-image">
+                        <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?w=300&h=200&fit=crop" alt="PUBG账号">
+                    </div>
+                    <div class="account-info">
+                        <h3>PUBG账号</h3>
+                        <p class="account-desc">多款稀有皮肤/高级装备/战绩优秀</p>
+                        <div class="account-meta">
+                            <span class="account-price">¥349</span>
+                            <div class="account-stats">
+                                <span class="account-sales">已售 63</span>
+                                <span class="account-stock stock-critical">库存 0</span>
+                            </div>
+                        </div>
+                        <a href="account-detail.html?id=10" class="btn btn-primary btn-sm">立即购买</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- 未登录购买弹窗 -->
+    <div class="modal" id="guest-purchase-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>未登录购买</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="guest-purchase-notice">您当前未登录账号，可以选择以下方式继续：</p>
+                
+                <div class="guest-purchase-options">
+                    <a href="login.html" class="btn btn-outline">登录账号</a>
+                    <a href="register.html" class="btn btn-outline">注册账号</a>
+                    <button class="btn btn-primary" id="continue-as-guest">直接购买</button>
+                </div>
+                
+                <div class="guest-purchase-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="guest-email">邮箱地址 <span class="required">*</span></label>
+                        <input type="email" id="guest-email" placeholder="请输入您的邮箱地址" required>
+                        <p class="form-hint">用于接收账号信息和订单详情</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guest-phone">手机号码 <span class="required">*</span></label>
+                        <input type="tel" id="guest-phone" placeholder="请输入您的手机号码" required>
+                        <p class="form-hint">用于接收订单通知和客服联系</p>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="back-to-options">返回</button>
+                        <button class="btn btn-primary" id="proceed-to-payment">确认并支付</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 在页面底部添加弹框结构 -->
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>服务协议</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="terms-content">
+                    <h4>账号易购服务协议</h4>
+                    <p>欢迎您使用账号易购服务！</p>
+                    
+                    <h5>1. 服务说明</h5>
+                    <p>账号易购是一个专业的账号交易平台，为用户提供安全、便捷的账号购买服务。我们承诺所有出售的账号均为正规渠道获取，并且经过严格的安全检测。</p>
+                    
+                    <h5>2. 用户责任</h5>
+                    <p>用户在使用本平台服务时，必须遵守中华人民共和国相关法律法规，不得利用本平台从事任何违法违规活动。用户应当对自己在本平台的行为负责，包括但不限于：</p>
+                    <ul>
+                        <li>不得利用购买的账号从事违法违规活动</li>
+                        <li>不得将账号用于非法用途</li>
+                        <li>不得尝试破解、倒卖或共享购买的账号</li>
+                        <li>不得恶意评价或提供虚假信息</li>
+                    </ul>
+                    
+                    <h5>3. 账号安全</h5>
+                    <p>用户在购买账号后，应当及时修改账号密码和绑定信息，以确保账号安全。本平台不对用户购买账号后因自身原因导致的账号安全问题负责。</p>
+                    
+                    <h5>4. 交易规则</h5>
+                    <p>用户在本平台购买账号时，应当仔细阅读账号详情，确认账号信息无误后再进行购买。一旦交易完成，除非账号存在平台承诺的问题，否则不予退款。</p>
+                    
+                    <h5>5. 隐私保护</h5>
+                    <p>本平台重视用户隐私保护，会采取合理措施保护用户个人信息安全。未经用户授权，不会向第三方披露用户个人信息。</p>
+                    
+                    <h5>6. 免责声明</h5>
+                    <p>本平台不对因不可抗力、第三方原因等非本平台原因导致的服务中断、账号问题等负责。用户应当理解并接受使用互联网服务的固有风险。</p>
+                    
+                    <h5>7. 协议修改</h5>
+                    <p>本平台有权根据业务发展需要修改本协议，修改后的协议将在平台公布。用户继续使用本平台服务，即表示接受修改后的协议。</p>
+                    
+                    <h5>8. 争议解决</h5>
+                    <p>本协议适用中华人民共和国法律。因使用本平台服务产生的争议，应当友好协商解决；协商不成的，任何一方均有权向本平台所在地人民法院提起诉讼。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="after-sales-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>售后协议</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="terms-content">
+                    <h4>账号易购售后服务协议</h4>
+                    <p>为保障您的权益，请仔细阅读以下售后服务条款。</p>
+                    
+                    <h5>1. 售后保障范围</h5>
+                    <p>本平台为用户提供以下售后保障服务：</p>
+                    <ul>
+                        <li>账号登录异常保障：购买后7天内，如账号无法正常登录，可申请退款</li>
+                        <li>账号信息不符保障：如账号实际情况与描述严重不符，可申请退款</li>
+                        <li>账号被找回保障：如账号被原主找回，本平台承诺全额退款</li>
+                    </ul>
+                    
+                    <h5>2. 售后服务期限</h5>
+                    <p>本平台提供的售后服务期限为购买成功后7天内。超过7天的账号问题，本平台将不再提供免费的售后服务，但仍可提供有偿技术支持。</p>
+                    
+                    <h5>3. 退款规则</h5>
+                    <p>符合以下条件之一的，用户可以申请退款：</p>
+                    <ul>
+                        <li>账号在7天内无法正常登录且无法恢复</li>
+                        <li>账号核心信息与描述严重不符</li>
+                        <li>账号被原主找回</li>
+                    </ul>
+                    <p>申请退款时，用户需提供相关证据，经平台核实后，将在3个工作日内处理退款。</p>
+                    
+                    <h5>4. 不予退款的情况</h5>
+                    <p>以下情况不予退款：</p>
+                    <ul>
+                        <li>用户自行操作导致的账号问题</li>
+                        <li>超过7天售后期限的账号问题</li>
+                        <li>账号被用户用于违法违规用途导致的问题</li>
+                        <li>用户提供虚假信息或证据</li>
+                    </ul>
+                    
+                    <h5>5. 售后服务流程</h5>
+                    <p>用户遇到账号问题时，可通过以下方式获取售后服务：</p>
+                    <ol>
+                        <li>联系在线客服，说明问题</li>
+                        <li>提供订单号和问题描述</li>
+                        <li>按客服要求提供相关证据</li>
+                        <li>等待平台核实和处理</li>
+                    </ol>
+                    
+                    <h5>6. 服务承诺</h5>
+                    <p>本平台承诺在售后服务期限内，及时响应用户的售后服务请求，一般情况下，会在24小时内给予回复。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{js/main.js}"></script>
+    <script th:src="@{js/account-detail.js}"></script>
+</body>
+</html> 

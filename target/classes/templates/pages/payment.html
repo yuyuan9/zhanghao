@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="了解如何使用USDT进行安全支付，购买您心仪的账号">
+    <meta name="keywords" content="USDT支付, 加密货币支付, 账号交易, 支付教程">
+    <title>支付说明 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/payment.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>支付说明</h1>
+            <p>了解如何使用USDT进行安全支付，购买您心仪的账号</p>
+        </div>
+    </section>
+
+    <section class="payment-guide">
+        <div class="container">
+            <div class="payment-intro">
+                <h2>什么是USDT？</h2>
+                <p>USDT（Tether）是一种与美元1:1挂钩的稳定币，是目前加密货币市场中使用最广泛的稳定币之一。使用USDT进行支付具有交易速度快、手续费低、安全性高等优点。</p>
+                <p>在我们平台，您可以使用USDT购买各类账号，交易过程安全可靠，无需担心资金安全问题。</p>
+            </div>
+            
+            <div class="payment-steps">
+                <h2>USDT支付步骤</h2>
+                <div class="steps-container">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>准备USDT</h3>
+                            <p>您需要先在加密货币交易所（如币安、火币等）购买USDT，或者从其他钱包转入USDT到您的钱包中。</p>
+                            <div class="step-image">
+                                <img src="images/payment-step1.jpg" alt="准备USDT">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>选择账号并下单</h3>
+                            <p>在我们的平台上选择您心仪的账号，点击"立即购买"按钮，进入订单确认页面。</p>
+                            <div class="step-image">
+                                <img src="images/payment-step2.jpg" alt="选择账号并下单">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>获取收款地址</h3>
+                            <p>在订单确认页面，您将看到我们的USDT收款地址和二维码，请仔细核对金额和地址。</p>
+                            <div class="step-image">
+                                <img src="images/payment-step3.jpg" alt="获取收款地址">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>转账支付</h3>
+                            <p>打开您的USDT钱包，扫描二维码或手动输入收款地址，输入正确的金额，确认转账。</p>
+                            <div class="step-image">
+                                <img src="images/payment-step4.jpg" alt="转账支付">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>等待确认</h3>
+                            <p>转账成功后，请耐心等待区块链网络确认，通常需要几分钟时间。我们的系统会自动检测到您的付款。</p>
+                            <div class="step-image">
+                                <img src="images/payment-step5.jpg" alt="等待确认">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3>获取账号</h3>
+                            <p>支付确认后，您将立即收到账号信息，可以在"我的订单"页面查看和管理您购买的账号。</p>
+                            <div class="step-image">
+                                <img src="images/payment-step6.jpg" alt="获取账号">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-networks">
+                <h2>支持的网络</h2>
+                <p>我们支持多种USDT网络，您可以根据自己的需求选择合适的网络进行转账：</p>
+                
+                <div class="networks-grid">
+                    <div class="network-item">
+                        <div class="network-icon">
+                            <img src="images/trc20.png" alt="TRC20">
+                        </div>
+                        <div class="network-info">
+                            <h3>TRC20</h3>
+                            <p>基于波场（TRON）网络，手续费低，确认速度快，推荐使用。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="network-item">
+                        <div class="network-icon">
+                            <img src="images/erc20.png" alt="ERC20">
+                        </div>
+                        <div class="network-info">
+                            <h3>ERC20</h3>
+                            <p>基于以太坊网络，手续费较高，但兼容性好。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="network-item">
+                        <div class="network-icon">
+                            <img src="images/bep20.png" alt="BEP20">
+                        </div>
+                        <div class="network-info">
+                            <h3>BEP20</h3>
+                            <p>基于币安智能链（BSC）网络，手续费低，确认速度快。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="network-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>请务必选择正确的网络进行转账，否则可能导致资金丢失。如果您不确定如何操作，请联系我们的客服获取帮助。</p>
+                </div>
+            </div>
+            
+            <div class="payment-faq">
+                <h2>常见问题</h2>
+                
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>如何获取USDT？</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>您可以通过以下方式获取USDT：</p>
+                            <ul>
+                                <li>在加密货币交易所（如币安、火币、OKX等）购买</li>
+                                <li>通过场外交易（OTC）购买</li>
+                                <li>从其他人那里接收转账</li>
+                            </ul>
+                            <p>如果您是加密货币新手，我们建议您使用币安等大型交易所，它们提供了简单的购买流程和详细的教程。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>转账需要多长时间？</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>转账时间取决于您选择的网络和当前网络拥堵情况：</p>
+                            <ul>
+                                <li>TRC20网络：通常在1-5分钟内确认</li>
+                                <li>BEP20网络：通常在1-3分钟内确认</li>
+                                <li>ERC20网络：可能需要5-30分钟，在网络拥堵时可能更长</li>
+                            </ul>
+                            <p>我们的系统会自动监测转账，一旦确认，您将立即收到通知。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>转账手续费是多少？</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>转账手续费由区块链网络收取，不同网络的手续费不同：</p>
+                            <ul>
+                                <li>TRC20网络：通常不到1 USDT</li>
+                                <li>BEP20网络：通常不到1 USDT</li>
+                                <li>ERC20网络：根据以太坊网络拥堵情况，可能从几美元到几十美元不等</li>
+                            </ul>
+                            <p>我们平台不额外收取任何手续费。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>如果我转错了怎么办？</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>如果您转错了金额或地址，请立即联系我们的客服。根据情况不同，我们会尽力帮助您解决问题：</p>
+                            <ul>
+                                <li>金额不足：您可以再次转账补足差额</li>
+                                <li>金额超出：多余的金额将被退还到您的账户</li>
+                                <li>转错地址：如果是转到了我们的其他地址，我们可以帮您处理；如果是转到了非我们平台的地址，可能无法追回</li>
+                            </ul>
+                            <p>为避免出错，请务必仔细核对地址和金额后再确认转账。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-support">
+                <h2>需要帮助？</h2>
+                <p>如果您在支付过程中遇到任何问题，或者需要更多关于USDT支付的信息，请随时联系我们的客服团队。我们提供7*24小时在线支持，随时为您解答疑问。</p>
+                
+                <div class="support-buttons">
+                    <a href="#" class="btn btn-primary"><i class="fas fa-comments"></i> 在线客服</a>
+                    <a href="#" class="btn btn-outline"><i class="fas fa-envelope"></i> 发送邮件</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{js/main.js}"></script>
+    <script th:src="@{js/payment.js}"></script>
+</body>
+</html> 

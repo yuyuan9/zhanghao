@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="账号易购 - 查询您的订单和购买记录">
+    <meta name="keywords" content="账号交易, 订单查询, 购买记录, 账号信息">
+    <title>订单查询 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/orders.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>我的账号</h1>
+            <p>查看您购买的所有账号信息</p>
+        </div>
+    </section>
+
+    <section class="orders-section">
+        <div class="container">
+            <!-- 未登录用户显示的内容 -->
+            <div class="not-logged-in" id="not-logged-in" style="display: none;">
+                <div class="login-prompt">
+                    <div class="login-icon">
+                        <i class="fas fa-user-lock"></i>
+                    </div>
+                    <h3>请先登录</h3>
+                    <p>登录后即可查看您购买的所有账号信息</p>
+                    <div class="login-actions">
+                        <a href="login.html" class="btn btn-primary">立即登录</a>
+                        <a href="register.html" class="btn btn-outline">注册新账号</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 已登录用户显示的内容 -->
+            <div class="user-accounts" id="user-accounts">
+                <div class="accounts-header">
+                    <div class="accounts-title">
+                        <h2>我的账号列表</h2>
+                        <p>您已购买 <span class="account-count">5</span> 个账号</p>
+                    </div>
+                    
+                    <div class="accounts-actions">
+                        <div class="accounts-filter">
+                            <div class="filter-group">
+                                <label for="account-type-filter">账号类型:</label>
+                                <select id="account-type-filter">
+                                    <option value="all">全部类型</option>
+                                    <option value="game">游戏账号</option>
+                                    <option value="social">社交媒体账号</option>
+                                    <option value="streaming">流媒体账号</option>
+                                    <option value="other">其他账号</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="sort-order">时间排序:</label>
+                                <select id="sort-order">
+                                    <option value="desc">最新优先</option>
+                                    <option value="asc">最早优先</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button id="export-excel-btn" class="btn btn-outline btn-export">
+                            <i class="fas fa-file-export"></i> 导出Excel
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="accounts-table-container">
+                    <table class="accounts-table">
+                        <thead>
+                            <tr>
+                                <th>账号</th>
+                                <th>密码</th>
+                                <th>辅助邮箱</th>
+                                <th>账号类型</th>
+                                <th>订单号</th>
+                                <th>购买时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accounts-list-body">
+                            <tr data-type="game">
+                                <td>wangzhe_123456</td>
+                                <td class="password-cell">
+                                    <span class="masked-password">••••••••</span>
+                                    <button class="toggle-password-btn" data-password="game2023!">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>wangzhe@example.com</td>
+                                <td>游戏账号</td>
+                                <td>ORD20230615001</td>
+                                <td>2023-06-15 14:30:25</td>
+                                <td>
+                                    <button class="copy-all-btn" data-account="wangzhe_123456" data-password="game2023!">
+                                        <i class="far fa-copy"></i> 复制信息
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-type="streaming">
+                                <td>netflix_premium</td>
+                                <td class="password-cell">
+                                    <span class="masked-password">••••••••</span>
+                                    <button class="toggle-password-btn" data-password="netflix2023">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>netflix@example.com</td>
+                                <td>流媒体账号</td>
+                                <td>ORD20230610001</td>
+                                <td>2023-06-10 09:15:42</td>
+                                <td>
+                                    <button class="copy-all-btn" data-account="netflix_premium" data-password="netflix2023">
+                                        <i class="far fa-copy"></i> 复制信息
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-type="social">
+                                <td>instagram_verified</td>
+                                <td class="password-cell">
+                                    <span class="masked-password">••••••••</span>
+                                    <button class="toggle-password-btn" data-password="insta2023!">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>insta@example.com</td>
+                                <td>社交媒体账号</td>
+                                <td>ORD20230528001</td>
+                                <td>2023-05-28 16:45:10</td>
+                                <td>
+                                    <button class="copy-all-btn" data-account="instagram_verified" data-password="insta2023!">
+                                        <i class="far fa-copy"></i> 复制信息
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-type="game">
+                                <td>lol_diamond</td>
+                                <td class="password-cell">
+                                    <span class="masked-password">••••••••</span>
+                                    <button class="toggle-password-btn" data-password="lol2023!">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>lol@example.com</td>
+                                <td>游戏账号</td>
+                                <td>ORD20230520001</td>
+                                <td>2023-05-20 11:22:33</td>
+                                <td>
+                                    <button class="copy-all-btn" data-account="lol_diamond" data-password="lol2023!">
+                                        <i class="far fa-copy"></i> 复制信息
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-type="other">
+                                <td>office365_pro</td>
+                                <td class="password-cell">
+                                    <span class="masked-password">••••••••</span>
+                                    <button class="toggle-password-btn" data-password="office2023!">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>office@example.com</td>
+                                <td>其他账号</td>
+                                <td>ORD20230515001</td>
+                                <td>2023-05-15 08:30:15</td>
+                                <td>
+                                    <button class="copy-all-btn" data-account="office365_pro" data-password="office2023!">
+                                        <i class="far fa-copy"></i> 复制信息
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="no-accounts" id="no-accounts" style="display: none;">
+                    <div class="no-accounts-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>暂无购买记录</h3>
+                    <p>您还没有购买任何账号</p>
+                    <a href="accounts.html" class="btn btn-primary">浏览账号商城</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script th:src="@{js/main.js}"></script>
+    <script th:src="@{js/orders.js}"></script>
+</body>
+</html> 
