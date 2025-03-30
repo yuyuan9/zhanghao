@@ -1,12 +1,14 @@
 package com.zhanghao.controller;
 
 import com.zhanghao.entity.Banner;
+import com.zhanghao.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.zhanghao.service.BannerService;
+import com.zhanghao.service.AccountService;
 
 import java.util.List;
 
@@ -15,11 +17,25 @@ public class HomeController {
     @Autowired
     BannerService bannerService;
 
+    @Autowired
+    AccountService accountService;
+
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("title", "首页");
+        // 获取轮播图数据
         List<Banner> banners = bannerService.getAllActiveBanners();
         model.addAttribute("banners", banners);
+        
+        // 获取热门账号数据
+        List<Account> gameAccounts = accountService.findHotAccountsByCategory("game", 2);
+        List<Account> streamingAccounts = accountService.findHotAccountsByCategory("streaming", 2);
+        List<Account> socialAccounts = accountService.findHotAccountsByCategory("social", 2);
+        
+        model.addAttribute("gameAccounts", gameAccounts);
+        model.addAttribute("streamingAccounts", streamingAccounts);
+        model.addAttribute("socialAccounts", socialAccounts);
+        
+        model.addAttribute("title", "账号易购 - 安全可靠的账号交易平台");
         return "pages/index";
     }
 

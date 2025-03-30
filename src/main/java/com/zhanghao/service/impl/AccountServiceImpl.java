@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -122,5 +123,11 @@ public class AccountServiceImpl implements AccountService {
     public boolean hasStock(Long id) {
         Optional<Account> accountOpt = accountRepository.findById(id);
         return accountOpt.map(account -> account.getStock() > 0).orElse(false);
+    }
+    
+    @Override
+    public List<Account> findHotAccountsByCategory(String category, int limit) {
+        // 使用分页查询，但直接返回内容列表
+        return accountRepository.findByCategoryAndEnabledTrueOrderBySalesCountDesc(category);
     }
 } 

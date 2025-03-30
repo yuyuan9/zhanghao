@@ -61,12 +61,12 @@
     </div>
 </section>
 
-<!-- 热门账号部分移到轮播图下方，并增加视觉吸引力 -->
+<!-- 热门账号部分 -->
 <section class="featured-accounts">
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">热门账号推荐</h2>
-            <a href="accounts.html" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
+            <a th:href="@{/accounts}" class="view-all">查看全部 <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <div class="account-tabs">
@@ -78,122 +78,69 @@
             </div>
 
             <div class="account-grid">
-                <div class="account-card" data-category="game">
-                    <div class="account-badge">热销</div>
+                <!-- 游戏账号 -->
+                <div th:each="account : ${gameAccounts}" class="account-card" data-category="game">
+                    <div th:if="${account.isHot}" class="account-badge">热销</div>
+                    <div th:if="${account.isNew}" class="account-badge new">新品</div>
+                    <div th:if="${account.originalPrice != null && account.originalPrice > account.price}" class="account-badge discount">折扣</div>
                     <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=300&h=200&fit=crop"
-                             alt="王者荣耀账号">
+                        <img th:src="${account.mainImage}" th:alt="${account.title}">
                     </div>
                     <div class="account-info">
-                        <h3>王者荣耀账号</h3>
-                        <p class="account-desc">100英雄/80皮肤/钻石段位</p>
+                        <h3 th:text="${account.title}">账号标题</h3>
+                        <p class="account-desc" th:text="${account.shortDescription}">账号描述</p>
                         <div class="account-meta">
-                            <span class="account-price">¥299</span>
+                            <span class="account-price" th:text="'¥' + ${#numbers.formatDecimal(account.price, 1, 0)}">¥299</span>
                             <div class="account-stats">
-                                <span class="account-sales">已售 152</span>
-                                <span class="account-stock">库存 8</span>
+                                <span class="account-sales" th:text="'已售 ' + ${account.salesCount}">已售 152</span>
+                                <span class="account-stock" th:text="'库存 ' + ${account.stock}" th:classappend="${account.stock <= 3 ? 'stock-low' : ''}">库存 8</span>
                             </div>
                         </div>
-                        <a href="account-detail.html?id=1" class="btn btn-primary btn-sm">立即购买</a>
+                        <a th:href="@{/accounts/{id}(id=${account.id})}" class="btn btn-primary btn-sm">立即购买</a>
                     </div>
                 </div>
 
-                <div class="account-card" data-category="streaming">
-                    <div class="account-badge">推荐</div>
+                <!-- 流媒体账号 -->
+                <div th:each="account : ${streamingAccounts}" class="account-card" data-category="streaming">
+                    <div th:if="${account.isHot}" class="account-badge">热销</div>
+                    <div th:if="${account.isNew}" class="account-badge new">新品</div>
+                    <div th:if="${account.originalPrice != null && account.originalPrice > account.price}" class="account-badge discount">折扣</div>
                     <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=300&h=200&fit=crop"
-                             alt="Netflix账号">
+                        <img th:src="${account.mainImage}" th:alt="${account.title}">
                     </div>
                     <div class="account-info">
-                        <h3>Netflix高级账号</h3>
-                        <p class="account-desc">4K画质/4人同时观看/独立子账号</p>
+                        <h3 th:text="${account.title}">账号标题</h3>
+                        <p class="account-desc" th:text="${account.shortDescription}">账号描述</p>
                         <div class="account-meta">
-                            <span class="account-price">¥99</span>
+                            <span class="account-price" th:text="'¥' + ${#numbers.formatDecimal(account.price, 1, 0)}">¥299</span>
                             <div class="account-stats">
-                                <span class="account-sales">已售 328</span>
-                                <span class="account-stock">库存 15</span>
+                                <span class="account-sales" th:text="'已售 ' + ${account.salesCount}">已售 152</span>
+                                <span class="account-stock" th:text="'库存 ' + ${account.stock}" th:classappend="${account.stock <= 3 ? 'stock-low' : ''}">库存 8</span>
                             </div>
                         </div>
-                        <a href="account-detail.html?id=2" class="btn btn-primary btn-sm">立即购买</a>
+                        <a th:href="@{/accounts/{id}(id=${account.id})}" class="btn btn-primary btn-sm">立即购买</a>
                     </div>
                 </div>
 
-                <div class="account-card" data-category="social">
+                <!-- 社交媒体账号 -->
+                <div th:each="account : ${socialAccounts}" class="account-card" data-category="social">
+                    <div th:if="${account.isHot}" class="account-badge">热销</div>
+                    <div th:if="${account.isNew}" class="account-badge new">新品</div>
+                    <div th:if="${account.originalPrice != null && account.originalPrice > account.price}" class="account-badge discount">折扣</div>
                     <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=200&fit=crop"
-                             alt="Instagram账号">
+                        <img th:src="${account.mainImage}" th:alt="${account.title}">
                     </div>
                     <div class="account-info">
-                        <h3>Instagram账号</h3>
-                        <p class="account-desc">5000+粉丝/高互动率/优质内容</p>
+                        <h3 th:text="${account.title}">账号标题</h3>
+                        <p class="account-desc" th:text="${account.shortDescription}">账号描述</p>
                         <div class="account-meta">
-                            <span class="account-price">¥199</span>
+                            <span class="account-price" th:text="'¥' + ${#numbers.formatDecimal(account.price, 1, 0)}">¥299</span>
                             <div class="account-stats">
-                                <span class="account-sales">已售 87</span>
-                                <span class="account-stock stock-low">库存 3</span>
+                                <span class="account-sales" th:text="'已售 ' + ${account.salesCount}">已售 152</span>
+                                <span class="account-stock" th:text="'库存 ' + ${account.stock}" th:classappend="${account.stock <= 3 ? 'stock-low' : ''}">库存 8</span>
                             </div>
                         </div>
-                        <a href="account-detail.html?id=3" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-
-                <div class="account-card" data-category="game">
-                    <div class="account-badge">折扣</div>
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=300&h=200&fit=crop"
-                             alt="英雄联盟账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>英雄联盟账号</h3>
-                        <p class="account-desc">全英雄/稀有皮肤/王者段位</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥399</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 95</span>
-                                <span class="account-stock">库存 12</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=4" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-
-                <div class="account-card" data-category="streaming">
-                    <div class="account-badge">热门</div>
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1586899028174-e7098604235b?w=300&h=200&fit=crop"
-                             alt="Disney+账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>Disney+账号</h3>
-                        <p class="account-desc">年付会员/4K画质/多设备</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥89</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 156</span>
-                                <span class="account-stock stock-critical">库存 0</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=5" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-
-                <div class="account-card" data-category="game">
-                    <div class="account-badge">新品</div>
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop"
-                             alt="原神账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>原神账号</h3>
-                        <p class="account-desc">多5星角色/多5星武器/高等级</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥499</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 42</span>
-                                <span class="account-stock">库存 7</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=6" class="btn btn-primary btn-sm">立即购买</a>
+                        <a th:href="@{/accounts/{id}(id=${account.id})}" class="btn btn-primary btn-sm">立即购买</a>
                     </div>
                 </div>
             </div>
@@ -350,5 +297,6 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/slider.js}"></script>
+<script th:src="@{/js/home.js}"></script>
 </body>
 </html> 

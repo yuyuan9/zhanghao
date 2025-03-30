@@ -179,24 +179,35 @@ function initSlider() {
 
 // 初始化账号标签页
 function initAccountTabs() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabButtons = document.querySelectorAll('.account-tabs .tab-btn');
     const accountCards = document.querySelectorAll('.account-card');
     
-    // 点击标签按钮
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+    if (tabButtons.length === 0 || accountCards.length === 0) {
+        console.warn('标签按钮或账号卡片不存在');
+        return;
+    }
+    
+    console.log('初始化标签页，找到', tabButtons.length, '个标签按钮和', accountCards.length, '个账号卡片');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('点击了标签：', this.getAttribute('data-category'));
+            
             // 移除所有按钮的活动状态
-            tabBtns.forEach(b => b.classList.remove('active'));
+            tabButtons.forEach(btn => btn.classList.remove('active'));
             
             // 添加当前按钮的活动状态
             this.classList.add('active');
             
-            // 获取当前分类
-            const category = this.dataset.category;
+            // 获取选中的分类
+            const category = this.getAttribute('data-category');
             
             // 显示或隐藏账号卡片
             accountCards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
+                const cardCategory = card.getAttribute('data-category');
+                console.log('卡片分类：', cardCategory);
+                
+                if (category === 'all' || cardCategory === category) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
@@ -222,14 +233,16 @@ function initAccountCards() {
         
         // 添加点击效果
         card.addEventListener('click', function(e) {
-            // 如果是已售罄状态或点击的是按钮，不执行跳转
-            if (this.classList.contains('sold-out') || e.target.closest('.btn')) {
+            // 如果点击的是按钮，不执行跳转（让按钮自己的链接生效）
+            if (e.target.closest('.btn')) {
                 return;
             }
             
-            // 否则跳转到详情页
+            // 获取卡片中的链接地址
             const link = this.querySelector('a.btn').getAttribute('href');
-            window.location.href = link;
+            if (link) {
+                window.location.href = link;
+            }
         });
         
         // 处理库存显示

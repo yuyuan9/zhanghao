@@ -42,4 +42,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     // 查询相关账号（同类别的其他账号）
     @Query("SELECT a FROM Account a WHERE a.category = :category AND a.id != :accountId AND a.enabled = true ORDER BY a.salesCount DESC")
     List<Account> findRelatedAccounts(@Param("category") String category, @Param("accountId") Long accountId, Pageable pageable);
+    
+    // 根据分类查询热门账号（不分页，直接返回List）
+    List<Account> findByCategoryAndEnabledTrueOrderBySalesCountDesc(String category);
 } 

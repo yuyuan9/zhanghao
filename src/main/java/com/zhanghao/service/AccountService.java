@@ -55,4 +55,12 @@ public interface AccountService {
     
     // 检查账号是否有库存
     boolean hasStock(Long id);
+    
+    /**
+     * 根据分类获取热门账号
+     * @param category 账号分类
+     * @param limit 限制返回数量
+     * @return 热门账号列表
+     */
+    List<Account> findHotAccountsByCategory(String category, int limit);
 } 
