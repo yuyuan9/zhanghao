@@ -6,8 +6,8 @@
     <meta name="description" content="账号易购 - 账号详情页，查看账号详细信息并购买">
     <meta name="keywords" content="账号交易, 游戏账号, 社交媒体账号, 流媒体账号, 账号购买">
     <title>王者荣耀账号 - 账号易购</title>
-    <link rel="stylesheet" th:href="@{css/style.css}">
-    <link rel="stylesheet" th:href="@{css/account-detail.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/account-detail.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -16,9 +16,9 @@
     <section class="breadcrumb">
         <div class="container">
             <ul>
-                <li><a href="index.html">首页</a></li>
-                <li><a href="accounts.html">账号商城</a></li>
-                <li><a href="accounts.html?category=game">游戏账号</a></li>
+                <li><a th:href="@{/}">首页</a></li>
+                <li><a th:href="@{/accounts}">账号商城</a></li>
+                <li><a th:href="@{/accounts(category=game)}">游戏账号</a></li>
                 <li>王者荣耀账号</li>
             </ul>
         </div>
@@ -486,7 +486,7 @@
         </div>
     </div>
 
-    <script th:src="@{js/main.js}"></script>
-    <script th:src="@{js/account-detail.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/account-detail.js}"></script>
 </body>
 </html> 
