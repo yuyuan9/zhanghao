@@ -164,6 +164,41 @@ nav ul li a:hover::after {
     gap: 10px;
 }
 
+/* 用户信息和退出按钮样式 */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info span {
+    color: #333;
+    font-size: 14px;
+}
+
+.user-info a {
+    color: #4a6bff;
+    text-decoration: none;
+}
+
+.user-info a:hover {
+    text-decoration: underline;
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f;
+}
+
 /* 英雄区域样式 */
 .hero {
     background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);

@@ -19,12 +19,48 @@
           <li><a th:href="@{/about}">关于我们</a></li>
         </ul>
       </nav>
-      <div class="user-actions">
+      <div class="user-actions" th:if="${session.currentUser == null}">
         <a th:href="@{/login}" class="btn btn-login">登录</a>
         <a th:href="@{/register}" class="btn btn-register">注册</a>
       </div>
+      <div class="user-info" th:if="${session.currentUser != null}">
+        <span>欢迎，<a th:href="@{/user/profile}" th:text="${session.currentUser.email}">用户</a></span>
+        <a href="javascript:void(0)" id="logout-btn" class="btn btn-logout">退出</a>
+      </div>
     </div>
   </header>
+  
+  <form id="logout-form" action="/api/user/logout" method="post" style="display: none;"></form>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          fetch('/api/user/logout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.code === 200) {
+              window.location.reload();
+            } else {
+              alert('退出失败：' + data.message);
+            }
+          })
+          .catch(error => {
+            console.error('退出请求出错:', error);
+            alert('退出请求出错，请稍后再试');
+          });
+        });
+      }
+    });
+  </script>
 </div>
 </body>
 </html>
