@@ -24,7 +24,7 @@
         <a th:href="@{/register}" class="btn btn-register">注册</a>
       </div>
       <div class="user-info" th:if="${session.currentUser != null}">
-        <span>欢迎，<a th:href="@{/user/profile}" th:text="${session.currentUser.email}">用户</a></span>
+        <span>欢迎，<a @@href="#" th:text="${session.currentUser.email}">用户</a></span>
         <a href="javascript:void(0)" id="logout-btn" class="btn btn-logout">退出</a>
       </div>
     </div>
