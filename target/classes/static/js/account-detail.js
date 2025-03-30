@@ -55,18 +55,20 @@ function initTabs() {
     
     tabButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // 移除所有按钮的active类
+            // 移除所有按钮的活动状态
             tabButtons.forEach(btn => btn.classList.remove('active'));
             
-            // 为当前点击的按钮添加active类
-            this.classList.add('active');
-            
-            // 隐藏所有标签页内容
+            // 移除所有内容面板的活动状态
             tabPanes.forEach(pane => pane.classList.remove('active'));
             
-            // 显示对应的标签页内容
-            const tabId = this.dataset.tab;
-            document.getElementById(tabId).classList.add('active');
+            // 添加当前按钮的活动状态
+            this.classList.add('active');
+            
+            // 获取目标标签页ID
+            const tabId = this.getAttribute('data-tab');
+            
+            // 激活对应的内容面板
+            document.getElementById(tabId + '-tab').classList.add('active');
         });
     });
 }

@@ -28,3 +28,42 @@ create TABLE banner (
     create_time DATETIME NOT NULL comment '创建时间',
     update_time DATETIME NOT NULL comment '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='轮播图表';
+
+-- 账号表
+CREATE TABLE IF NOT EXISTS account (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    account_id VARCHAR(100) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    original_price DECIMAL(10, 2),
+    description VARCHAR(1000),
+    main_image VARCHAR(255),
+    stock INT NOT NULL,
+    sales_count INT DEFAULT 0,
+    is_hot BOOLEAN DEFAULT FALSE,
+    is_new BOOLEAN DEFAULT FALSE,
+    is_recommended BOOLEAN DEFAULT FALSE,
+    enabled BOOLEAN DEFAULT TRUE,
+    detail_info TEXT,
+    usage_guide TEXT,
+    faq_content TEXT,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 账号特性表
+CREATE TABLE IF NOT EXISTS account_feature (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    account_id BIGINT NOT NULL,
+    feature VARCHAR(255) NOT NULL,
+    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
+);
+
+-- 账号图片表
+CREATE TABLE IF NOT EXISTS account_image (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    account_id BIGINT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
+);

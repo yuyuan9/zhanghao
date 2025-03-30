@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="账号易购 - 账号详情页，查看账号详细信息并购买">
     <meta name="keywords" content="账号交易, 游戏账号, 社交媒体账号, 流媒体账号, 账号购买">
-    <title>王者荣耀账号 - 账号易购</title>
+    <title th:text="${account.title} + ' - 账号易购'">账号详情 - 账号易购</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/account-detail.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -18,8 +18,8 @@
             <ul>
                 <li><a th:href="@{/}">首页</a></li>
                 <li><a th:href="@{/accounts}">账号商城</a></li>
-                <li><a th:href="@{/accounts(category=game)}">游戏账号</a></li>
-                <li>王者荣耀账号</li>
+                <li><a th:href="@{/accounts(category=${account.category})}" th:text="${account.category == 'game' ? '游戏账号' : (account.category == 'social' ? '社交媒体账号' : '流媒体账号')}">账号分类</a></li>
+                <li th:text="${account.title}">账号标题</li>
             </ul>
         </div>
     </section>
@@ -29,45 +29,50 @@
             <div class="account-main">
                 <div class="account-gallery">
                     <div class="main-image">
-                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&h=600&fit=crop" alt="王者荣耀账号" id="main-image">
+                        <img th:src="${account.mainImage}" th:alt="${account.title}" id="main-image">
                     </div>
                     <div class="thumbnail-images">
-                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图1" class="active" onclick="changeImage(this.src)">
-                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图2" onclick="changeImage(this.src)">
-                        <img src="https://images.unsplash.com/photo-1612287230559-e9c4b3d534fe?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图3" onclick="changeImage(this.src)">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=150&h=100&fit=crop" alt="王者荣耀账号缩略图4" onclick="changeImage(this.src)">
+                        <img th:each="image, stat : ${account.images}" 
+                             th:src="${image}" 
+                             th:alt="${account.title} + ' 缩略图' + ${stat.count}"
+                             th:class="${stat.first ? 'active' : ''}"
+                             onclick="changeImage(this.src)">
                     </div>
                 </div>
                 <div class="account-info">
-                    <h1>王者荣耀账号 <span class="account-badge">热销</span></h1>
+                    <h1 th:text="${account.title}">账号标题 
+                        <span class="account-badge" th:if="${account.isHot}">热销</span>
+                        <span class="account-badge new" th:if="${account.isNew}">新品</span>
+                    </h1>
                     
                     <div class="account-id-info">
                         <span class="account-id-label">账号ID:</span>
-                        <span class="account-id-value">WZ123456789</span>
+                        <span class="account-id-value" th:text="${account.accountId}">账号ID</span>
                     </div>
                     
                     <!-- 优化的价格展示部分 -->
                     <div class="account-price-section">
                         <div class="price-row">
-                            <div class="price-current">¥299</div>
-                            <div class="price-tags">
-                                <div class="price-original">¥399</div>
-                                <div class="price-discount">7.5折</div>
+                            <div class="price-current" th:text="'¥' + ${#numbers.formatDecimal(account.price, 1, 2)}">¥299</div>
+                            <div class="price-tags" th:if="${account.originalPrice != null}">
+                                <div class="price-original" th:text="'¥' + ${#numbers.formatDecimal(account.originalPrice, 1, 2)}">¥399</div>
+                                <div class="price-discount" th:text="${account.discountRate} + '折'">7.5折</div>
                             </div>
                         </div>
-                        <div class="price-save">立省: ¥100</div>
+                        <div class="price-save" th:if="${account.originalPrice != null}" 
+                             th:text="'立省: ¥' + ${#numbers.formatDecimal(account.savedAmount, 1, 2)}">立省: ¥100</div>
                     </div>
                     
                     <div class="account-description">
-                        <p>这是一个高级王者荣耀账号，拥有100个英雄和80个皮肤，段位为钻石I。账号已稳定使用3年，绑定了手机和微信，安全可靠。</p>
+                        <p th:text="${account.description}">账号描述</p>
                     </div>
                     
                     <div class="account-features">
                         <ul>
-                            <li><i class="fas fa-check-circle"></i> 拥有多个限定英雄和皮肤</li>
-                            <li><i class="fas fa-check-circle"></i> 战力高，胜率稳定</li>
-                            <li><i class="fas fa-check-circle"></i> 信誉等级高，无违规记录</li>
-                            <li><i class="fas fa-check-circle"></i> 赠送完整的登录信息和使用教程</li>
+                            <li th:each="feature : ${account.features}">
+                                <i class="fas fa-check-circle"></i> 
+                                <span th:text="${feature}">账号特性</span>
+                            </li>
                         </ul>
                     </div>
                     
@@ -76,10 +81,10 @@
                         <span class="quantity-label">购买数量:</span>
                         <div class="quantity-controls">
                             <button class="quantity-btn minus" id="decrease-quantity">-</button>
-                            <input type="number" id="quantity-input" value="1" min="1" max="8">
+                            <input type="number" id="quantity-input" value="1" min="1" th:max="${account.stock}">
                             <button class="quantity-btn plus" id="increase-quantity">+</button>
                         </div>
-                        <span class="quantity-stock">库存: 8件</span>
+                        <span class="quantity-stock" th:text="'库存: ' + ${account.stock} + '件'">库存数量</span>
                     </div>
                     
                     <div class="purchase-options">
@@ -90,7 +95,11 @@
                                 我已阅读并承诺遵守本站<a href="javascript:void(0)" id="terms-link">服务协议</a>及<a href="javascript:void(0)" id="after-sales-link">售后协议</a>
                             </label>
                         </div>
-                        <button class="btn btn-primary btn-buy" id="buy-now-btn">立即购买</button>
+                        <button class="btn btn-primary btn-buy" id="buy-now-btn" 
+                                th:disabled="${account.stock <= 0}" 
+                                th:class="${account.stock <= 0 ? 'btn btn-disabled' : 'btn btn-primary btn-buy'}">
+                            <span th:text="${account.stock <= 0 ? '已售罄' : '立即购买'}">立即购买</span>
+                        </button>
                     </div>
                     
                     <div class="account-notice">
@@ -110,281 +119,128 @@
                 </div>
             </div>
             
-            <div class="account-details-tabs">
+            <div class="account-tabs">
                 <div class="tab-header">
-                    <button class="tab-btn active" data-tab="details">账号详情</button>
+                    <button class="tab-btn active" data-tab="detail">账号详情</button>
+                    <button class="tab-btn" data-tab="guide">使用指南</button>
                     <button class="tab-btn" data-tab="guarantee">购买保障</button>
                     <button class="tab-btn" data-tab="faq">常见问题</button>
                 </div>
+                
                 <div class="tab-content">
-                    <div class="tab-pane active" id="details">
-                        <div class="details-section">
-                            <h3>账号详细信息</h3>
-                            <div class="details-grid">
-                                <div class="details-item">
-                                    <span class="details-label">账号等级:</span>
-                                    <span class="details-value">30级</span>
+                    <!-- 详细信息标签页 -->
+                    <div class="tab-pane active" id="detail-tab">
+                        <div class="detail-content" th:utext="${account.detailInfo}">
+                            <!-- 详细信息内容 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 使用指南标签页 -->
+                    <div class="tab-pane" id="guide-tab">
+                        <div class="guide-content" th:utext="${account.usageGuide}">
+                            <!-- 使用指南内容 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 购买保障标签页 -->
+                    <div class="tab-pane" id="guarantee-tab">
+                        <div class="guarantee-content">
+                            <h3>账号易购购买保障</h3>
+                            <div class="guarantee-items">
+                                <div class="guarantee-item">
+                                    <div class="guarantee-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="guarantee-info">
+                                        <h4>账号安全保障</h4>
+                                        <p>所有账号均经过严格安全检测，确保无任何安全隐患。</p>
+                                    </div>
                                 </div>
-                                <div class="details-item">
-                                    <span class="details-label">贵族等级:</span>
-                                    <span class="details-value">贵族8</span>
+                                <div class="guarantee-item">
+                                    <div class="guarantee-icon">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </div>
+                                    <div class="guarantee-info">
+                                        <h4>7天售后保障</h4>
+                                        <p>购买后7天内，如遇账号问题，可联系客服处理。</p>
+                                    </div>
                                 </div>
-                                <div class="details-item">
-                                    <span class="details-label">战令等级:</span>
-                                    <span class="details-value">满级</span>
+                                <div class="guarantee-item">
+                                    <div class="guarantee-icon">
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+                                    <div class="guarantee-info">
+                                        <h4>账号找回保障</h4>
+                                        <p>如账号被原主找回，本平台承诺全额退款。</p>
+                                    </div>
                                 </div>
-                                <div class="details-item">
-                                    <span class="details-label">点券数量:</span>
-                                    <span class="details-value">2000点券</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">钻石数量:</span>
-                                    <span class="details-value">500钻石</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">金币数量:</span>
-                                    <span class="details-value">50000金币</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">荣耀积分:</span>
-                                    <span class="details-value">3000积分</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">铭文等级:</span>
-                                    <span class="details-value">满级铭文</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">创建时间:</span>
-                                    <span class="details-value">2020年</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">绑定情况:</span>
-                                    <span class="details-value">已绑定手机和微信</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">信誉等级:</span>
-                                    <span class="details-value">优秀</span>
-                                </div>
-                                <div class="details-item">
-                                    <span class="details-label">违规记录:</span>
-                                    <span class="details-value">无</span>
+                                <div class="guarantee-item">
+                                    <div class="guarantee-icon">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <div class="guarantee-info">
+                                        <h4>专业客服团队</h4>
+                                        <p>专业客服团队7*12小时在线，及时解决您的问题。</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="guarantee">
-                        <div class="guarantee-section">
-                            <h3>购买保障说明</h3>
-                            <div class="guarantee-item">
-                                <div class="guarantee-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <div class="guarantee-content">
-                                    <h4>账号真实性保障</h4>
-                                    <p>所有账号均经过平台严格审核，确保账号信息真实有效。如发现账号信息与描述不符，可申请全额退款。</p>
-                                </div>
-                            </div>
-                            <div class="guarantee-item">
-                                <div class="guarantee-icon">
-                                    <i class="fas fa-lock"></i>
-                                </div>
-                                <div class="guarantee-content">
-                                    <h4>账号安全保障</h4>
-                                    <p>账号交易完成后，卖家将无法再次登录或找回账号。我们会提供完整的账号安全交接流程，确保您的账号安全。</p>
-                                </div>
-                            </div>
-                            <div class="guarantee-item">
-                                <div class="guarantee-icon">
-                                    <i class="fas fa-sync-alt"></i>
-                                </div>
-                                <div class="guarantee-content">
-                                    <h4>7天售后保障</h4>
-                                    <p>购买后7天内，如账号出现无法登录、被找回等问题，可联系客服处理。我们将优先为您解决问题，必要时提供全额退款。</p>
-                                </div>
-                            </div>
-                            <div class="guarantee-item">
-                                <div class="guarantee-icon">
-                                    <i class="fas fa-headset"></i>
-                                </div>
-                                <div class="guarantee-content">
-                                    <h4>专业客服支持</h4>
-                                    <p>7*24小时专业客服团队，随时为您解答问题，提供技术支持和售后服务。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="faq">
-                        <div class="faq-section">
-                            <h3>常见问题</h3>
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <i class="fas fa-question-circle"></i>
-                                    <h4>购买后多久可以收到账号？</h4>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>支付成功后，系统会立即自动发送账号信息到您的注册邮箱和个人中心，一般在5分钟内即可收到。</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <i class="fas fa-question-circle"></i>
-                                    <h4>如何修改账号密码和绑定信息？</h4>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>购买成功后，我们会提供详细的账号接收教程，包括如何修改密码和绑定信息。您也可以联系客服获取帮助。</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <i class="fas fa-question-circle"></i>
-                                    <h4>账号被找回怎么办？</h4>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>我们的账号均经过严格筛选，被找回的可能性极低。如果在7天内出现账号被找回的情况，请立即联系客服，我们会为您处理或提供全额退款。</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <i class="fas fa-question-circle"></i>
-                                    <h4>可以使用哪些支付方式？</h4>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>目前支持支付宝、微信支付、银行卡支付和USDT支付等多种支付方式，您可以选择最方便的方式进行支付。</p>
-                                </div>
-                            </div>
+                    
+                    <!-- 常见问题标签页 -->
+                    <div class="tab-pane" id="faq-tab">
+                        <div class="faq-content" th:utext="${account.faqContent}">
+                            <!-- 常见问题内容 -->
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 相关推荐部分 -->
+            <section class="related-accounts">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">相关推荐</h2>
+                        <a href="#" class="view-more">查看更多 <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    
+                    <div class="account-cards">
+                        <!-- 相关账号卡片 -->
+                        <div th:each="relatedAccount : ${relatedAccounts}" class="account-card">
+                            <a th:href="@{/accounts/{id}(id=${relatedAccount.id})}">
+                                <!-- 标签 -->
+                                <span th:if="${relatedAccount.isHot}" class="card-tag">热门</span>
+                                <span th:if="${relatedAccount.isNew}" class="card-tag new">新品</span>
+                                <span th:if="${relatedAccount.stock <= 0}" class="card-tag sold">已售罄</span>
+                                
+                                <!-- 图片 -->
+                                <img th:src="${relatedAccount.mainImage}" th:alt="${relatedAccount.title}" class="card-image">
+                                
+                                <!-- 内容 -->
+                                <div class="card-content">
+                                    <h3 class="card-title" th:text="${relatedAccount.title}">账号标题</h3>
+                                    <div class="card-price">
+                                        <span class="price-current" th:text="'¥' + ${#numbers.formatDecimal(relatedAccount.price, 1, 2)}">¥299</span>
+                                        <span th:if="${relatedAccount.originalPrice != null}" class="price-original" 
+                                              th:text="'¥' + ${#numbers.formatDecimal(relatedAccount.originalPrice, 1, 2)}">¥399</span>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span class="card-sales">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span th:text="'已售' + ${relatedAccount.salesCount}">已售328</span>
+                                        </span>
+                                        <span th:text="'库存' + ${relatedAccount.stock}">库存8</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 
-    <section class="related-accounts">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">相关推荐</h2>
-                <a href="accounts.html?category=game" class="view-all">查看更多 <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="account-grid">
-                <div class="account-card" data-category="game">
-                    <div class="account-badge">折扣</div>
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=300&h=200&fit=crop" alt="英雄联盟账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>英雄联盟账号</h3>
-                        <p class="account-desc">全英雄/稀有皮肤/王者段位</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥399</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 95</span>
-                                <span class="account-stock">库存 12</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=4" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-                
-                <div class="account-card" data-category="game">
-                    <div class="account-badge">新品</div>
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop" alt="原神账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>原神账号</h3>
-                        <p class="account-desc">多5星角色/多5星武器/高等级</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥499</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 42</span>
-                                <span class="account-stock">库存 7</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=6" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-                
-                <div class="account-card" data-category="game">
-                    <div class="account-badge">热门</div>
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=200&fit=crop" alt="Steam账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>Steam账号</h3>
-                        <p class="account-desc">200+游戏/多款3A大作/稀有徽章</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥599</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 78</span>
-                                <span class="account-stock stock-low">库存 3</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=9" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-                
-                <div class="account-card" data-category="game">
-                    <div class="account-image">
-                        <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?w=300&h=200&fit=crop" alt="PUBG账号">
-                    </div>
-                    <div class="account-info">
-                        <h3>PUBG账号</h3>
-                        <p class="account-desc">多款稀有皮肤/高级装备/战绩优秀</p>
-                        <div class="account-meta">
-                            <span class="account-price">¥349</span>
-                            <div class="account-stats">
-                                <span class="account-sales">已售 63</span>
-                                <span class="account-stock stock-critical">库存 0</span>
-                            </div>
-                        </div>
-                        <a href="account-detail.html?id=10" class="btn btn-primary btn-sm">立即购买</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<div th:replace="~{fragments/footer :: footer}"></div>
-
-    <!-- 未登录购买弹窗 -->
-    <div class="modal" id="guest-purchase-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>未登录购买</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p class="guest-purchase-notice">您当前未登录账号，可以选择以下方式继续：</p>
-                
-                <div class="guest-purchase-options">
-                    <a href="login.html" class="btn btn-outline">登录账号</a>
-                    <a href="register.html" class="btn btn-outline">注册账号</a>
-                    <button class="btn btn-primary" id="continue-as-guest">直接购买</button>
-                </div>
-                
-                <div class="guest-purchase-form" style="display: none;">
-                    <div class="form-group">
-                        <label for="guest-email">邮箱地址 <span class="required">*</span></label>
-                        <input type="email" id="guest-email" placeholder="请输入您的邮箱地址" required>
-                        <p class="form-hint">用于接收账号信息和订单详情</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="guest-phone">手机号码 <span class="required">*</span></label>
-                        <input type="tel" id="guest-phone" placeholder="请输入您的手机号码" required>
-                        <p class="form-hint">用于接收订单通知和客服联系</p>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button class="btn btn-secondary" id="back-to-options">返回</button>
-                        <button class="btn btn-primary" id="proceed-to-payment">确认并支付</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 在页面底部添加弹框结构 -->
+    <!-- 服务协议弹窗 -->
     <div class="modal" id="terms-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -430,6 +286,7 @@
         </div>
     </div>
 
+    <!-- 售后协议弹窗 -->
     <div class="modal" id="after-sales-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -485,6 +342,8 @@
             </div>
         </div>
     </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
 
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/account-detail.js}"></script>

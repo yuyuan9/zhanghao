@@ -35,18 +35,18 @@ public class HomeController {
         return "pages/register";
     }
 
-    @GetMapping("/accounts")
-    public String accounts(Model model) {
-        model.addAttribute("title", "账号商城");
-        return "pages/accounts";
-    }
+//    @GetMapping("/accounts")
+//    public String accounts(Model model) {
+//        model.addAttribute("title", "账号商城");
+//        return "pages/accounts";
+//    }
 
-    @GetMapping("/accounts/{id}")
-    public String accountDetail(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("title", "账号详情");
-        // 在实际项目中，这里应该从数据库中获取账号信息
-        return "pages/account-detail";
-    }
+//    @GetMapping("/accounts/{id}")
+//    public String accountDetail(@PathVariable("id") Long id, Model model) {
+//        model.addAttribute("title", "账号详情");
+//        // 在实际项目中，这里应该从数据库中获取账号信息
+//        return "pages/account-detail";
+//    }
 
     @GetMapping("/about")
     public String about(Model model) {
