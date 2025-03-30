@@ -76,6 +76,9 @@ public class Account {
     
     @Column(name = "faq_content", columnDefinition = "TEXT")
     private String faqContent;
+    @Column(name = "short_description", columnDefinition = "TEXT")
+    private String shortDescription;
+
     
     @CreationTimestamp
     @Column(name = "create_time", updatable = false)
