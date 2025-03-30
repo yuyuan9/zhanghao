@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 测试</title>
+</head>
+<body>
+    <h1>Session 测试</h1>
+    
+    <div th:if="${session.currentUser != null}">
+        <h2>当前登录用户信息</h2>
+        <p>ID: <span th:text="${session.currentUser.id}">ID</span></p>
+        <p>邮箱: <span th:text="${session.currentUser.email}">邮箱</span></p>
+        <p>昵称: <span th:text="${session.currentUser.nickname}">昵称</span></p>
+        <p>最后登录时间: <span th:text="${session.currentUser.lastLoginTime}">时间</span></p>
+        <p>最后登录IP: <span th:text="${session.currentUser.lastLoginIp}">IP</span></p>
+    </div>
+    
+    <div th:if="${session.currentUser == null}">
+        <h2>未登录</h2>
+        <p>当前没有用户登录</p>
+    </div>
+    
+    <div>
+        <a href="/">返回首页</a>
+    </div>
+</body>
+</html> 

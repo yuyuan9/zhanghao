@@ -9,6 +9,7 @@
     <title>账号易购 - 安全可靠的账号交易平台</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/slider.css}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -16,42 +17,46 @@
 
 <div th:replace="fragments/header :: header"></div>
 <section class="hero">
-    <div class="slider">
-        <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=400&fit=crop"
-                 alt="游戏账号促销">
-            <div class="slide-content">
-                <h2>游戏账号大促销</h2>
-                <p>多款热门游戏账号限时8折优惠，立即选购心仪账号</p>
-                <a href="accounts.html?category=game" class="btn btn-primary">立即查看</a>
+    <div class="container">
+        <!-- 轮播图容器 -->
+        <div class="slider-container">
+            <div class="slider" id="banner-slider">
+                <!-- 动态加载轮播图数据 -->
+                <div th:each="banner, stat : ${banners}" th:class="${stat.first ? 'slide active' : 'slide'}" 
+                     th:data-link="${banner.linkUrl}">
+                    <img th:src="${banner.imageUrl}" th:alt="${banner.title}" loading="lazy">
+                    <div class="slide-content">
+                        <h2 th:text="${banner.title}">轮播图标题</h2>
+                        <p th:text="${banner.description}">轮播图描述</p>
+                    </div>
+                </div>
+                
+                <!-- 如果没有轮播图数据，显示默认轮播图 -->
+                <div th:if="${#lists.isEmpty(banners)}" class="slide active" data-link="/accounts">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=160&fit=crop&q=80" alt="默认轮播图" loading="lazy">
+                    <div class="slide-content">
+                        <h2>欢迎来到账号易购</h2>
+                        <p>安全、便捷的账号交易平台</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1200&h=400&fit=crop"
-                 alt="流媒体账号">
-            <div class="slide-content">
-                <h2>流媒体账号专区</h2>
-                <p>Netflix、Disney+、HBO Max等多平台账号，尽享高清视听盛宴</p>
-                <a href="accounts.html?category=streaming" class="btn btn-primary">立即查看</a>
+            
+            <!-- 轮播图控制按钮 -->
+            <button class="slider-btn prev-btn" id="prev-btn" aria-label="上一张">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-btn next-btn" id="next-btn" aria-label="下一张">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- 轮播图指示器 -->
+            <div class="slider-indicators" id="slider-indicators">
+                <span th:each="banner, stat : ${banners}" 
+                      th:class="${stat.first ? 'indicator active' : 'indicator'}" 
+                      th:data-index="${stat.index}"></span>
+                <!-- 如果没有轮播图数据，显示默认指示器 -->
+                <span th:if="${#lists.isEmpty(banners)}" class="indicator active" data-index="0"></span>
             </div>
-        </div>
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=400&fit=crop"
-                 alt="社交媒体账号">
-            <div class="slide-content">
-                <h2>社交媒体账号</h2>
-                <p>Instagram、Twitter、Facebook等多平台账号，拓展您的社交网络</p>
-                <a href="accounts.html?category=social" class="btn btn-primary">立即查看</a>
-            </div>
-        </div>
-        <div class="slider-controls">
-            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-            <div class="slider-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
-            </div>
-            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </section>
@@ -344,6 +349,6 @@
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script th:src="@{/js/main.js}"></script>
-<script th:src="@{js/home.js}"></script>
+<script th:src="@{/js/slider.js}"></script>
 </body>
 </html> 

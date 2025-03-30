@@ -1,0 +1,193 @@
+/* 轮播图容器 - 优化设计 */
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* 修改为100%，让轮播图铺满容器 */
+    height: 180px; /* 稍微增加高度，提升视觉效果 */
+    overflow: hidden;
+    margin: 0 auto 30px;
+    border-radius: 0; /* 移除圆角，实现全宽效果 */
+    box-shadow: none; /* 移除阴影，提供更现代的外观 */
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* 轮播图 */
+.slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 轮播图片 */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    display: none;
+}
+
+.slide.active {
+    opacity: 1;
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%; /* 调整图片焦点位置 */
+    filter: brightness(0.85); /* 稍微降低亮度，使文字更清晰 */
+}
+
+/* 轮播图内容 - 优化文字显示 */
+.slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10%;  /* 增加左右内边距，使文字居中显示 */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 100%);
+    color: white;
+    z-index: 2;
+    text-align: center; /* 文字居中 */
+}
+
+.slide-content h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    color: white;
+    letter-spacing: 0.5px; /* 增加字间距 */
+}
+
+.slide-content p {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 0;
+    max-width: 100%;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+/* 轮播图按钮 - 优化样式 */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0.6;
+}
+
+.slider-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    opacity: 1;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* 轮播图指示器 - 优化样式 */
+.slider-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 50%; /* 居中显示 */
+    transform: translateX(-50%); /* 水平居中 */
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.indicator.active {
+    background-color: white;
+    transform: scale(1.3);
+}
+
+/* 确保链接样式不受干扰 */
+.slide a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .slider-container {
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-container {
+        height: 140px;
+    }
+    
+    .slide-content h2 {
+        font-size: 18px;
+    }
+    
+    .slide-content p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .slider-container {
+        height: 120px;
+    }
+    
+    .slide-content {
+        padding: 15px 5%;
+    }
+    
+    .slide-content h2 {
+        font-size: 16px;
+        margin-bottom: 2px;
+    }
+    
+    .slide-content p {
+        font-size: 10px;
+        display: block; /* 在小屏幕上也显示描述 */
+    }
+    
+    .slider-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+} 
