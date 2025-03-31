@@ -1,7 +1,10 @@
 // 账号详情页面JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化图片切换功能
+    // 初始化分享功能
+    initShareFeature();
+    
+    // 初始化图片轮播
     initImageGallery();
     
     // 初始化标签页切换
@@ -23,27 +26,127 @@ document.addEventListener('DOMContentLoaded', function() {
     initQuantitySelector();
 });
 
-// 图片切换功能
-function initImageGallery() {
-    const thumbnails = document.querySelectorAll('.thumbnail-images img');
-    const mainImage = document.getElementById('main-image');
+// 初始化分享功能
+function initShareFeature() {
+    const shareBtn = document.getElementById('share-btn');
+    const shareModal = document.getElementById('share-modal');
+    const closeBtn = shareModal.querySelector('.close');
+    const shareLinkInput = document.getElementById('share-link-input');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
     
-    thumbnails.forEach(thumbnail => {
-        thumbnail.addEventListener('click', function() {
-            // 移除所有缩略图的active类
-            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+    // 如果没有分享按钮，直接返回
+    if (!shareBtn) return;
+    
+    // 点击分享按钮
+    shareBtn.addEventListener('click', function() {
+        const accountId = this.getAttribute('data-id');
+        
+        // 调用后端接口获取分享链接
+        fetch(`/accounts/${accountId}/share`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // 显示分享弹窗
+                shareModal.style.display = 'block';
+                
+                // 设置分享链接
+                const shareLink = window.location.origin + data.shareLink;
+                shareLinkInput.value = shareLink;
+                
+                // 生成二维码
+                generateQRCode(shareLink);
+                
+                // 设置社交媒体分享链接
+                setupSocialSharing(shareLink);
+            } else {
+                alert(data.message || '分享失败');
+            }
+        })
+        .catch(error => {
+            console.error('分享出错:', error);
+            alert('分享失败，请稍后再试');
+        });
+    });
+    
+    // 关闭弹窗
+    closeBtn.addEventListener('click', function() {
+        shareModal.style.display = 'none';
+    });
+    
+    // 点击弹窗外部关闭
+    window.addEventListener('click', function(event) {
+        if (event.target === shareModal) {
+            shareModal.style.display = 'none';
+        }
+    });
+    
+    // 复制链接
+    copyLinkBtn.addEventListener('click', function() {
+        shareLinkInput.select();
+        document.execCommand('copy');
+        alert('链接已复制到剪贴板');
+    });
+}
+
+// 生成二维码
+function generateQRCode(url) {
+    const qrcodeContainer = document.getElementById('qrcode');
+    
+    // 清空容器
+    qrcodeContainer.innerHTML = '';
+    
+    // 使用qrcode.js库生成二维码
+    new QRCode(qrcodeContainer, {
+        text: url,
+        width: 128,
+        height: 128,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+}
+
+// 设置社交媒体分享
+function setupSocialSharing(url) {
+    const title = document.title;
+    const description = document.querySelector('meta[name="description"]').getAttribute('content');
+    
+    // 微信分享（通常是显示二维码）
+    document.getElementById('share-wechat').addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('请使用微信扫描二维码分享');
+    });
+    
+    // 微博分享
+    document.getElementById('share-weibo').href = `http://service.weibo.com/share/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+    
+    // QQ分享
+    document.getElementById('share-qq').href = `http://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}`;
+    
+    // 复制链接（已在上面的代码中处理）
+}
+
+// 初始化图片轮播
+function initImageGallery() {
+    const mainImage = document.querySelector('.account-gallery-main img');
+    const thumbnails = document.querySelectorAll('.account-gallery-thumbs img');
+    
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            // 更新主图
+            mainImage.src = this.getAttribute('data-large');
             
-            // 为当前点击的缩略图添加active类
+            // 移除所有缩略图的活动状态
+            thumbnails.forEach(t => t.classList.remove('active'));
+            
+            // 添加当前缩略图的活动状态
             this.classList.add('active');
-            
-            // 更新主图片
-            mainImage.src = this.src.replace('w=150&h=100', 'w=800&h=600');
-            
-            // 添加淡入效果
-            mainImage.style.opacity = '0';
-            setTimeout(() => {
-                mainImage.style.opacity = '1';
-            }, 50);
         });
     });
 }

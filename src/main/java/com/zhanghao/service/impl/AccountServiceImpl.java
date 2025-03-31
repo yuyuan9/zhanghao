@@ -130,4 +130,19 @@ public class AccountServiceImpl implements AccountService {
         // 使用分页查询，但直接返回内容列表
         return accountRepository.findByCategoryAndEnabledTrueOrderBySalesCountDesc(category);
     }
+    
+    @Override
+    public void incrementShareCount(Long accountId) {
+        Optional<Account> accountOpt = accountRepository.findById(accountId);
+        if (accountOpt.isPresent()) {
+            Account account = accountOpt.get();
+//            account.setShareCount(account.getShareCount() + 1);
+            accountRepository.save(account);
+        }
+    }
+    
+    @Override
+    public List<Account> getAllAccountsNoPage() {
+        return accountRepository.findByEnabledTrue();
+    }
 } 

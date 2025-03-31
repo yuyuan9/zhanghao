@@ -473,4 +473,50 @@
         width: 35px;
         height: 35px;
     }
+}
+
+/* 无数据提示 */
+.no-data-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 0;
+    color: #999;
+}
+
+.no-data-message i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+.no-data-message p {
+    font-size: 16px;
+}
+
+/* 分页导航按钮 */
+.pagination .prev,
+.pagination .next {
+    width: auto;
+    padding: 0 15px;
+}
+
+.pagination .prev i {
+    margin-right: 5px;
+}
+
+.pagination .next i {
+    margin-left: 5px;
+}
+
+/* 状态筛选按钮 */
+.status-filter button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* 已售罄按钮样式 */
+.btn-disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    opacity: 0.7;
 } 

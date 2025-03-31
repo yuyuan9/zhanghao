@@ -1463,4 +1463,101 @@
     font-size: 14px;
     color: #52c41a;
     font-weight: 500;
+}
+
+/* 分享弹窗 */
+.share-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.share-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+}
+
+.share-modal .close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.share-options {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.share-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.share-option i {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.share-option:hover {
+    transform: translateY(-5px);
+}
+
+.share-link-container {
+    display: flex;
+    margin: 20px 0;
+}
+
+.share-link-container input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+}
+
+.share-link-container button {
+    padding: 10px 15px;
+    background-color: #4a6bff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.share-qrcode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.share-qrcode #qrcode {
+    margin-bottom: 10px;
+}
+
+.btn-share {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-share:hover {
+    background-color: #e9ecef;
 } 

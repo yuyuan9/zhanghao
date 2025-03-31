@@ -1,5 +1,8 @@
 package com.zhanghao.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.zhanghao.entity.Account;
 import com.zhanghao.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/accounts")
@@ -24,52 +31,31 @@ public class AccountController {
     
     // 账号列表页面
     @GetMapping
-    public String listAccounts(
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) BigDecimal minPrice,
-            @RequestParam(required = false) BigDecimal maxPrice,
-            @RequestParam(required = false) String keyword,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "12") int size,
-            @RequestParam(required = false, defaultValue = "createTime") String sort,
-            @RequestParam(required = false, defaultValue = "desc") String direction,
-            Model model) {
-        
-        // 创建分页和排序
-        Sort.Direction sortDirection = "asc".equalsIgnoreCase(direction) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sort));
-        
-        // 根据不同条件查询账号
-        Page<Account> accounts;
-        
-        if (keyword != null && !keyword.isEmpty()) {
-            // 搜索
-            accounts = accountService.searchAccounts(keyword, pageable);
-            model.addAttribute("keyword", keyword);
-        } else if (category != null && !category.isEmpty() && minPrice != null && maxPrice != null) {
-            // 分类和价格范围
-            accounts = accountService.getAccountsByCategoryAndPriceRange(category, minPrice, maxPrice, pageable);
-            model.addAttribute("category", category);
-            model.addAttribute("minPrice", minPrice);
-            model.addAttribute("maxPrice", maxPrice);
-        } else if (minPrice != null && maxPrice != null) {
-            // 价格范围
-            accounts = accountService.getAccountsByPriceRange(minPrice, maxPrice, pageable);
-            model.addAttribute("minPrice", minPrice);
-            model.addAttribute("maxPrice", maxPrice);
-        } else if (category != null && !category.isEmpty()) {
-            // 分类
-            accounts = accountService.getAccountsByCategory(category, pageable);
-            model.addAttribute("category", category);
-        } else {
-            // 所有账号
-            accounts = accountService.getAllAccounts(pageable);
+    public String listAccounts(Model model) {
+        try {
+            // 获取所有账号
+            List<Account> allAccounts = accountService.getAllAccountsNoPage();
+            
+            // 添加数据到模型
+            model.addAttribute("accounts", allAccounts);
+            model.addAttribute("title", "账号商城 - 账号易购");
+            
+            // 确保账号数据可以被序列化
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            String accountsJson = mapper.writeValueAsString(allAccounts);
+            model.addAttribute("accountsJson", accountsJson);
+            
+        } catch (Exception e) {
+            // 记录错误
+            e.printStackTrace();
+            
+            // 返回空列表
+            model.addAttribute("accounts", new ArrayList<Account>());
+            model.addAttribute("accountsJson", "[]");
+            model.addAttribute("error", "查询出错: " + e.getMessage());
         }
-        
-        model.addAttribute("accounts", accounts);
-        model.addAttribute("sort", sort);
-        model.addAttribute("direction", direction);
-        model.addAttribute("title", "账号商城");
         
         return "pages/accounts";
     }
@@ -107,5 +93,45 @@ public class AccountController {
     @ResponseBody
     public boolean checkStock(@PathVariable Long id) {
         return accountService.hasStock(id);
+    }
+    
+    // 分享账号
+    @PostMapping("/{id}/share")
+    @ResponseBody
+    public Map<String, Object> shareAccount(@PathVariable Long id) {
+        Map<String, Object> result = new HashMap<>();
+        
+        try {
+            // 获取账号信息
+            Optional<Account> accountOpt = accountService.getAccountById(id);
+            
+            if (accountOpt.isPresent()) {
+                Account account = accountOpt.get();
+                
+                // 生成分享链接
+                String shareLink = generateShareLink(account);
+                
+                // 更新分享次数
+                accountService.incrementShareCount(id);
+                
+                result.put("success", true);
+                result.put("shareLink", shareLink);
+                result.put("message", "分享成功");
+            } else {
+                result.put("success", false);
+                result.put("message", "账号不存在");
+            }
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("message", "分享失败: " + e.getMessage());
+        }
+        
+        return result;
+    }
+    
+    // 生成分享链接
+    private String generateShareLink(Account account) {
+        // 这里可以根据需要生成不同的分享链接
+        return "/share/account/" + account.getId() + "?utm_source=share";
     }
 } 

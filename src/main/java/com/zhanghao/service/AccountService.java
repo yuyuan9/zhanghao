@@ -63,4 +63,10 @@ public interface AccountService {
      * @return 热门账号列表
      */
     List<Account> findHotAccountsByCategory(String category, int limit);
+    
+    // 增加分享次数
+    void incrementShareCount(Long accountId);
+    
+    // 获取所有账号（不分页）
+    List<Account> getAllAccountsNoPage();
 } 

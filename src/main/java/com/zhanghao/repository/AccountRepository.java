@@ -45,4 +45,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     
     // 根据分类查询热门账号（不分页，直接返回List）
     List<Account> findByCategoryAndEnabledTrueOrderBySalesCountDesc(String category);
+    
+    // 查询所有启用的账号（不分页）
+    List<Account> findByEnabledTrue();
 } 
