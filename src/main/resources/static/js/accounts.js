@@ -357,7 +357,9 @@ function applyStatusFilters() {
     
     // 先按分类筛选
     filterByCategory(currentCategory);
-    
+
+
+
     // 再应用状态筛选
     if (inStock) {
         filteredAccounts = filteredAccounts.filter(account => account.stock > 0);
