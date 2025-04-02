@@ -262,7 +262,7 @@ function initAccountCards() {
             // 获取卡片中的链接地址
             const link = this.querySelector('a.btn').getAttribute('href');
             if (link && !this.querySelector('a.btn').hasAttribute('disabled')) {
-                window.location.href = link;
+            window.location.href = link;
             }
         });
     });

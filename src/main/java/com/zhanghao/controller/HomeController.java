@@ -91,6 +91,7 @@ public class HomeController {
     @GetMapping("/payment")
     public String payment(Model model) {
         model.addAttribute("title", "支付说明");
-        return "pages/payment";
+        return "pages/payment-confirm";
     }
+
 } 

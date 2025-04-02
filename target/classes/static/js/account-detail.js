@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化弹窗
     initModals();
-
+    
     // 初始化购买数量功能
     initQuantitySelector();
     //初始化用户登录状态检测
@@ -187,7 +187,7 @@ function initPurchase() {
     const buyButton = document.getElementById('buy-now-btn');
     const termsLink = document.querySelector('a[href="terms.html"]');
     const afterSalesLink = document.querySelector('a[href="after-sales.html"]');
-
+    
     // 检查协议勾选状态并更新按钮状态
     function updateButtonState() {
         if (agreementCheckbox.checked) {
@@ -431,7 +431,7 @@ function initQuantitySelector() {
     // 修改购买按钮点击事件，传递购买数量
     buyButton.addEventListener('click', function() {
         const quantity = parseInt(quantityInput.value);
-
+        
         // 检查协议是否勾选
         const agreementCheckbox = document.getElementById('agreement-checkbox');
         if (!agreementCheckbox.checked) {
