@@ -1,11 +1,11 @@
 // 账号详情页面JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化分享功能
-    initShareFeature();
+//    // 初始化分享功能
+//    initShareFeature();
     
-    // 初始化图片轮播
-    initImageGallery();
+//    // 初始化图片轮播
+//    initImageGallery();
     
     // 初始化标签页切换
     initTabs();
@@ -18,12 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化弹窗
     initModals();
-    
-    // 初始化未登录购买功能
-    initGuestPurchase();
-    
+
     // 初始化购买数量功能
     initQuantitySelector();
+    //初始化用户登录状态检测
+    isUserLoggedIn();
 });
 
 // 初始化分享功能
@@ -33,14 +32,14 @@ function initShareFeature() {
     const closeBtn = shareModal.querySelector('.close');
     const shareLinkInput = document.getElementById('share-link-input');
     const copyLinkBtn = document.getElementById('copy-link-btn');
-    
+
     // 如果没有分享按钮，直接返回
     if (!shareBtn) return;
-    
+
     // 点击分享按钮
     shareBtn.addEventListener('click', function() {
         const accountId = this.getAttribute('data-id');
-        
+
         // 调用后端接口获取分享链接
         fetch(`/accounts/${accountId}/share`, {
             method: 'POST',
@@ -54,14 +53,14 @@ function initShareFeature() {
             if (data.success) {
                 // 显示分享弹窗
                 shareModal.style.display = 'block';
-                
+
                 // 设置分享链接
                 const shareLink = window.location.origin + data.shareLink;
                 shareLinkInput.value = shareLink;
-                
+
                 // 生成二维码
                 generateQRCode(shareLink);
-                
+
                 // 设置社交媒体分享链接
                 setupSocialSharing(shareLink);
             } else {
@@ -73,19 +72,19 @@ function initShareFeature() {
             alert('分享失败，请稍后再试');
         });
     });
-    
+
     // 关闭弹窗
     closeBtn.addEventListener('click', function() {
         shareModal.style.display = 'none';
     });
-    
+
     // 点击弹窗外部关闭
     window.addEventListener('click', function(event) {
         if (event.target === shareModal) {
             shareModal.style.display = 'none';
         }
     });
-    
+
     // 复制链接
     copyLinkBtn.addEventListener('click', function() {
         shareLinkInput.select();
@@ -175,6 +174,12 @@ function initTabs() {
         });
     });
 }
+// 初始化登录状态检测
+function isUserLoggedIn() {
+    // 从页面上的隐藏元素获取登录状态
+    const loginStatusElement = document.getElementById('user-login-status');
+    return loginStatusElement && loginStatusElement.value === 'true';
+}
 
 // 购买按钮和协议勾选功能
 function initPurchase() {
@@ -182,7 +187,7 @@ function initPurchase() {
     const buyButton = document.getElementById('buy-now-btn');
     const termsLink = document.querySelector('a[href="terms.html"]');
     const afterSalesLink = document.querySelector('a[href="after-sales.html"]');
-    
+
     // 检查协议勾选状态并更新按钮状态
     function updateButtonState() {
         if (agreementCheckbox.checked) {
@@ -208,7 +213,11 @@ function initPurchase() {
             alert('请先阅读并同意服务协议和售后协议');
             return;
         }
-        
+        if(!isUserLoggedIn()){
+            alert('请先登录');
+            window.location.href = '/login';
+            return;
+        }
         // 这里可以添加购买逻辑，例如跳转到支付页面
         window.location.href = 'payment.html?id=1';
     });
@@ -364,107 +373,7 @@ function closeModal(modalId) {
     }
 }
 
-// 添加未登录购买功能
-function initGuestPurchase() {
-    const buyButton = document.getElementById('buy-now-btn');
-    const guestPurchaseModal = document.getElementById('guest-purchase-modal');
-    const continueAsGuestBtn = document.getElementById('continue-as-guest');
-    const backToOptionsBtn = document.getElementById('back-to-options');
-    const proceedToPaymentBtn = document.getElementById('proceed-to-payment');
-    const guestPurchaseOptions = document.querySelector('.guest-purchase-options');
-    const guestPurchaseForm = document.querySelector('.guest-purchase-form');
-    const guestEmail = document.getElementById('guest-email');
-    const guestPhone = document.getElementById('guest-phone');
-    
-    // 检查用户是否已登录
-    function isUserLoggedIn() {
-        // 这里应该检查用户是否已登录
-        // 为了演示，我们假设用户未登录
-        return false;
-    }
-    
-    // 购买按钮点击事件
-    buyButton.addEventListener('click', function() {
-        const agreementCheckbox = document.getElementById('agreement-checkbox');
-        
-        if (!agreementCheckbox.checked) {
-            alert('请先阅读并同意服务协议和售后协议');
-            return;
-        }
-        
-        if (!isUserLoggedIn()) {
-            // 如果用户未登录，显示未登录购买弹窗
-            openModal('guest-purchase-modal');
-            // 重置表单
-            guestPurchaseOptions.style.display = 'flex';
-            guestPurchaseForm.style.display = 'none';
-            guestEmail.value = '';
-            guestPhone.value = '';
-        } else {
-            // 如果用户已登录，直接跳转到支付页面
-            window.location.href = 'payment.html?id=1';
-        }
-    });
-    
-    // 直接购买按钮点击事件
-    continueAsGuestBtn.addEventListener('click', function() {
-        guestPurchaseOptions.style.display = 'none';
-        guestPurchaseForm.style.display = 'block';
-    });
-    
-    // 返回按钮点击事件
-    backToOptionsBtn.addEventListener('click', function() {
-        guestPurchaseOptions.style.display = 'flex';
-        guestPurchaseForm.style.display = 'none';
-    });
-    
-    // 确认并支付按钮点击事件
-    proceedToPaymentBtn.addEventListener('click', function() {
-        // 验证表单
-        if (!guestEmail.value) {
-            alert('请输入邮箱地址');
-            guestEmail.focus();
-            return;
-        }
-        
-        if (!validateEmail(guestEmail.value)) {
-            alert('请输入有效的邮箱地址');
-            guestEmail.focus();
-            return;
-        }
-        
-        if (!guestPhone.value) {
-            alert('请输入手机号码');
-            guestPhone.focus();
-            return;
-        }
-        
-        if (!validatePhone(guestPhone.value)) {
-            alert('请输入有效的手机号码');
-            guestPhone.focus();
-            return;
-        }
-        
-        // 保存游客信息到本地存储
-        localStorage.setItem('guestEmail', guestEmail.value);
-        localStorage.setItem('guestPhone', guestPhone.value);
-        
-        // 跳转到支付页面
-        window.location.href = 'payment.html?id=1&guest=true';
-    });
-    
-    // 验证邮箱格式
-    function validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-    
-    // 验证手机号格式
-    function validatePhone(phone) {
-        const re = /^1[3-9]\d{9}$/;
-        return re.test(phone);
-    }
-}
+
 
 // 修改initQuantitySelector函数，更新库存显示逻辑
 function initQuantitySelector() {
@@ -522,81 +431,14 @@ function initQuantitySelector() {
     // 修改购买按钮点击事件，传递购买数量
     buyButton.addEventListener('click', function() {
         const quantity = parseInt(quantityInput.value);
-        
+
         // 检查协议是否勾选
         const agreementCheckbox = document.getElementById('agreement-checkbox');
         if (!agreementCheckbox.checked) {
             alert('请先阅读并同意服务协议和售后协议');
             return;
         }
-        
-        // 检查是否登录
-        if (!isUserLoggedIn()) {
-            // 如果用户未登录，显示未登录购买弹窗
-            openModal('guest-purchase-modal');
-            
-            // 修改未登录购买流程中的确认按钮，传递数量
-            const proceedToPaymentBtn = document.getElementById('proceed-to-payment');
-            if (proceedToPaymentBtn) {
-                proceedToPaymentBtn.onclick = function() {
-                    const guestEmail = document.getElementById('guest-email');
-                    const guestPhone = document.getElementById('guest-phone');
-                    
-                    // 验证表单
-                    if (!guestEmail.value) {
-                        alert('请输入邮箱地址');
-                        guestEmail.focus();
-                        return;
-                    }
-                    
-                    if (!validateEmail(guestEmail.value)) {
-                        alert('请输入有效的邮箱地址');
-                        guestEmail.focus();
-                        return;
-                    }
-                    
-                    if (!guestPhone.value) {
-                        alert('请输入手机号码');
-                        guestPhone.focus();
-                        return;
-                    }
-                    
-                    if (!validatePhone(guestPhone.value)) {
-                        alert('请输入有效的手机号码');
-                        guestPhone.focus();
-                        return;
-                    }
-                    
-                    // 保存游客信息到本地存储
-                    localStorage.setItem('guestEmail', guestEmail.value);
-                    localStorage.setItem('guestPhone', guestPhone.value);
-                    
-                    // 跳转到支付页面，并传递购买数量
-                    window.location.href = `payment.html?id=1&guest=true&quantity=${quantity}`;
-                };
-            }
-        } else {
-            // 如果用户已登录，直接跳转到支付页面，并传递购买数量
-            window.location.href = `payment.html?id=1&quantity=${quantity}`;
-        }
     });
 }
 
-// 检查用户是否已登录
-function isUserLoggedIn() {
-    // 这里应该检查用户是否已登录
-    // 为了演示，我们假设用户未登录
-    return false;
-}
 
-// 验证邮箱格式
-function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-
-// 验证手机号格式
-function validatePhone(phone) {
-    const re = /^1[3-9]\d{9}$/;
-    return re.test(phone);
-} 

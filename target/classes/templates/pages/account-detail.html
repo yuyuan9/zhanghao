@@ -13,7 +13,8 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-
+<!-- 在account-detail.html中 -->
+<input type="hidden" id="user-login-status" th:value="${session.currentUser != null }">
     <section class="breadcrumb">
         <div class="container">
             <ul>
@@ -346,7 +347,6 @@
 
     <div th:replace="~{fragments/footer :: footer}"></div>
 
-    <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/account-detail.js}"></script>
 </body>
 </html> 
