@@ -183,58 +183,81 @@ function isUserLoggedIn() {
 
 // 购买按钮和协议勾选功能
 function initPurchase() {
-    const agreementCheckbox = document.getElementById('agreement-checkbox');
-    const buyButton = document.getElementById('buy-now-btn');
-    const termsLink = document.querySelector('a[href="terms.html"]');
-    const afterSalesLink = document.querySelector('a[href="after-sales.html"]');
+    const buyButton = document.getElementById('buy-button');
+    const agreeTerms = document.getElementById('agree-terms');
     
-    // 检查协议勾选状态并更新按钮状态
-    function updateButtonState() {
-        if (agreementCheckbox.checked) {
-            buyButton.removeAttribute('disabled');
-            buyButton.classList.remove('btn-disabled');
-            buyButton.classList.add('btn-primary');
-        } else {
-            buyButton.setAttribute('disabled', 'disabled');
-            buyButton.classList.remove('btn-primary');
-            buyButton.classList.add('btn-disabled');
-        }
-    }
-    
-    // 初始状态下更新按钮
-    updateButtonState();
-    
-    // 监听复选框变化
-    agreementCheckbox.addEventListener('change', updateButtonState);
-    
-    // 购买按钮点击事件
-    buyButton.addEventListener('click', function() {
-        if (!agreementCheckbox.checked) {
-            alert('请先阅读并同意服务协议和售后协议');
-            return;
-        }
-        if(!isUserLoggedIn()){
-            alert('请先登录');
-            window.location.href = '/login';
-            return;
-        }
-        // 这里可以添加购买逻辑，例如跳转到支付页面
-        window.location.href = 'payment.html?id=1';
-    });
-    
-    // 服务协议点击事件
-    if (termsLink) {
-        termsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal('terms-modal');
-        });
-    }
-    
-    // 售后协议点击事件
-    if (afterSalesLink) {
-        afterSalesLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal('after-sales-modal');
+    if (buyButton && agreeTerms) {
+        // 处理购买按钮点击
+        buyButton.addEventListener('click', function() {
+            // 检查是否同意协议
+            if (!agreeTerms.checked) {
+                alert('请先阅读并同意服务协议');
+                return;
+            }
+            
+            // 检查用户是否登录
+            if (!isUserLoggedIn()) {
+                // 显示登录提示弹窗
+                openModal('login-modal');
+                return;
+            }
+            
+            // 获取账号ID
+            const accountId = this.getAttribute('data-id');
+            
+            // 获取购买数量
+            const quantity = document.getElementById('quantity-input') 
+                ? parseInt(document.getElementById('quantity-input').value) 
+                : 1;
+            
+            // 获取价格
+            const priceElement = document.querySelector('.price-current') || document.querySelector('.account-price .price');
+            const totalPrice = priceElement 
+                ? parseFloat(priceElement.textContent.replace('¥', '').trim()) 
+                : 0;
+            
+            // 创建表单提交
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/buy/createOrder';
+            form.style.display = 'none';
+            
+            // 添加账号ID字段
+            const accountIdField = document.createElement('input');
+            accountIdField.type = 'hidden';
+            accountIdField.name = 'accountId';
+            accountIdField.value = accountId;
+            form.appendChild(accountIdField);
+            
+            // 添加数量字段
+            const quantityField = document.createElement('input');
+            quantityField.type = 'hidden';
+            quantityField.name = 'quantity';
+            quantityField.value = quantity;
+            form.appendChild(quantityField);
+            
+            // 添加总价字段
+            const totalPriceField = document.createElement('input');
+            totalPriceField.type = 'hidden';
+            totalPriceField.name = 'totalPrice';
+            totalPriceField.value = totalPrice;
+            form.appendChild(totalPriceField);
+            
+            // 添加CSRF令牌（如果使用Spring Security）
+            const csrfToken = document.querySelector('meta[name="_csrf"]');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]');
+            
+            if (csrfToken && csrfHeader) {
+                const csrfField = document.createElement('input');
+                csrfField.type = 'hidden';
+                csrfField.name = csrfHeader.content.replace('X-', '');
+                csrfField.value = csrfToken.content;
+                form.appendChild(csrfField);
+            }
+            
+            // 添加表单到文档并提交
+            document.body.appendChild(form);
+            form.submit();
         });
     }
 }
