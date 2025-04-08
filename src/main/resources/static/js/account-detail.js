@@ -198,8 +198,8 @@ function initPurchase() {
             // 检查用户是否登录
             if (!isUserLoggedIn()) {
                 // 显示登录提示弹窗
-                openModal('login-modal');
-                return;
+
+                return window.location.href = '/login'
             }
             
             // 获取账号ID
@@ -343,35 +343,39 @@ function initModals() {
     const closeButtons = document.querySelectorAll('.close-modal');
     
     // 点击服务协议链接显示服务协议弹框
-    termsLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        termsModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // 防止背景滚动
-    });
+    if (termsLink) {
+        termsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            termsModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        });
+    }
     
     // 点击售后协议链接显示售后协议弹框
-    afterSalesLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        afterSalesModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // 防止背景滚动
-    });
+    if (afterSalesLink) {
+        afterSalesLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            afterSalesModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        });
+    }
     
     // 点击关闭按钮关闭弹框
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
-            termsModal.style.display = 'none';
-            afterSalesModal.style.display = 'none';
+            if (termsModal) termsModal.style.display = 'none';
+            if (afterSalesModal) afterSalesModal.style.display = 'none';
             document.body.style.overflow = 'auto'; // 恢复背景滚动
         });
     });
     
     // 点击弹框外部关闭弹框
     window.addEventListener('click', function(event) {
-        if (event.target === termsModal) {
+        if (termsModal && event.target === termsModal) {
             termsModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        if (event.target === afterSalesModal) {
+        if (afterSalesModal && event.target === afterSalesModal) {
             afterSalesModal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
@@ -396,26 +400,27 @@ function closeModal(modalId) {
     }
 }
 
-
-
 // 修改initQuantitySelector函数，更新库存显示逻辑
 function initQuantitySelector() {
     const decreaseBtn = document.getElementById('decrease-quantity');
     const increaseBtn = document.getElementById('increase-quantity');
     const quantityInput = document.getElementById('quantity-input');
-    const buyButton = document.getElementById('buy-now-btn');
     const priceElement = document.querySelector('.price-current');
     
-    // 获取单价
-    const unitPrice = parseFloat(priceElement.textContent.replace('¥', ''));
+    if (!decreaseBtn || !increaseBtn || !quantityInput || !priceElement) {
+        return; // 如果缺少必要元素，则退出函数
+    }
+    
+    // 获取单价（去掉¥符号和空格）
+    const unitPrice = parseFloat(priceElement.textContent.replace('¥', '').trim());
     
     // 获取最大库存
-    const maxStock = parseInt(quantityInput.getAttribute('max'));
+    const maxStock = parseInt(quantityInput.getAttribute('max') || '1');
     
     // 更新价格显示
     function updateTotalPrice() {
         const quantity = parseInt(quantityInput.value);
-        const totalPrice = (unitPrice * quantity).toFixed(0);
+        const totalPrice = (unitPrice * quantity).toFixed(2);
         priceElement.textContent = `¥${totalPrice}`;
     }
     
@@ -437,8 +442,8 @@ function initQuantitySelector() {
         }
     });
     
-    // 直接输入数量
-    quantityInput.addEventListener('change', function() {
+    // 直接输入数量时触发更新
+    quantityInput.addEventListener('input', function() {
         let currentValue = parseInt(this.value);
         
         // 确保数量在有效范围内
@@ -449,18 +454,6 @@ function initQuantitySelector() {
         }
         
         updateTotalPrice();
-    });
-    
-    // 修改购买按钮点击事件，传递购买数量
-    buyButton.addEventListener('click', function() {
-        const quantity = parseInt(quantityInput.value);
-        
-        // 检查协议是否勾选
-        const agreementCheckbox = document.getElementById('agreement-checkbox');
-        if (!agreementCheckbox.checked) {
-            alert('请先阅读并同意服务协议和售后协议');
-            return;
-        }
     });
 }
 

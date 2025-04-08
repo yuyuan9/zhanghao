@@ -88,7 +88,7 @@ public class BuyAccountController {
         model.addAttribute("contactInfo", "@duotena");
 
         // 跳转到支付确认页面
-        return "redirect:/buy/getOrderInfo?orderId=?orderId=" + order.getId();
+        return "redirect:/buy/getOrderInfo?orderId=" + order.getId();
 
 
     }
@@ -102,7 +102,7 @@ public class BuyAccountController {
      */
     @GetMapping("/getOrderInfo")
     public String getOrderInfo(@RequestParam("orderId") Long orderId, Model model) {
-        Order order = orderRepository.findById(orderId).get();
+        Order order = orderRepository.findById(Long.valueOf(orderId)).get();
         model.addAttribute("orderId", order.getId());
         model.addAttribute("quantity", order.getQuantity());
         model.addAttribute("amount", order.getValue().setScale(2, BigDecimal.ROUND_HALF_UP));
