@@ -67,3 +67,33 @@ CREATE TABLE IF NOT EXISTS account_image (
     image_url VARCHAR(255) NOT NULL,
     FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
 );
+
+-- 账号类型表
+CREATE TABLE IF NOT EXISTS account_type (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    type_code VARCHAR(50) NOT NULL,
+    type_name VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    sort_order INT,
+    enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    
+    CONSTRAINT uk_account_type_code UNIQUE (type_code),
+    CONSTRAINT uk_account_type_name UNIQUE (type_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='账号类型表';
+
+-- 用户购买的账号表
+CREATE TABLE IF NOT EXISTS purchased_account (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    account_name VARCHAR(100) NOT NULL,
+    account_password VARCHAR(100) NOT NULL,
+    auxiliary_email VARCHAR(100),
+    account_type VARCHAR(100) NOT NULL,
+    order_number VARCHAR(50) NOT NULL,
+    purchase_time DATETIME NOT NULL,
+    user_id BIGINT NOT NULL,
+    remarks VARCHAR(255),
+
+    INDEX idx_purchased_account_user_id (user_id),
+    INDEX idx_purchased_account_order_number (order_number),
+    INDEX idx_purchased_account_purchase_time (purchase_time)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户购买的账号表';

@@ -82,11 +82,11 @@ public class HomeController {
         return "pages/contact";
     }
 
-    @GetMapping("/orders")
-    public String orders(Model model) {
-        model.addAttribute("title", "订单");
-        return "pages/orders";
-    }
+//    @GetMapping("/orders")
+//    public String orders(Model model) {
+//        model.addAttribute("title", "订单");
+//        return "pages/orders";
+//    }
 
     @GetMapping("/payment")
     public String payment(Model model) {

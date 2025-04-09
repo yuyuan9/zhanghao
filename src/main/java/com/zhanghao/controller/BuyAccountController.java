@@ -120,11 +120,17 @@ public class BuyAccountController {
      */
     @PostMapping("/checkPayment")
     @ResponseBody
-    public Map<String, Object> checkPayment(@RequestParam("oid") String oid) {
+    public Map<String, Object> checkPayment(@RequestParam("oid") String oid, HttpSession session) {
         Map<String, Object> result = new HashMap<>();
-
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            result.put("success", "noLogin");
+            return result;
+        }
         // 这里应该调用服务来检查支付状态
         if (PaymentApiClient.tronusdtCheck(oid)) {
+            //支付成功发送账号
+
             result.put("success", true);
         } else {
             result.put("success", false);

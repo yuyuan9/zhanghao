@@ -26,3 +26,18 @@ INSERT INTO account_image (account_id, image_url) VALUES
 (1, 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=150&h=100&fit=crop'),
 (1, 'https://images.unsplash.com/photo-1612287230559-e9c4b3d534fe?w=150&h=100&fit=crop'),
 (1, 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=150&h=100&fit=crop'); 
+
+-- 账号类型初始数据
+INSERT INTO account_type (type_code, type_name, description, sort_order, enabled) VALUES
+('game', '游戏账号', '各类游戏平台的账号，如王者荣耀、英雄联盟等', 1, true),
+('social', '社交媒体账号', '各类社交媒体平台的账号，如Instagram、Twitter等', 2, true),
+('streaming', '流媒体账号', '各类流媒体平台的账号，如Netflix、Disney+等', 3, true),
+('other', '其他账号', '其他类型的账号，如Office365等', 4, true);
+
+-- 示例购买账号数据
+INSERT INTO purchased_account (account_name, account_password, auxiliary_email, account_type_id, order_number, purchase_time, user_id, remarks) VALUES
+('wangzhe_123456', 'game2023!', 'wangzhe@example.com', (SELECT id FROM account_type WHERE type_code = 'game'), 'ORD20230615001', '2023-06-15 14:30:25', 1, '王者荣耀账号，已验证'),
+('netflix_premium', 'netflix2023', 'netflix@example.com', (SELECT id FROM account_type WHERE type_code = 'streaming'), 'ORD20230610001', '2023-06-10 09:15:42', 1, 'Netflix高级会员账号'),
+('instagram_verified', 'insta2023!', 'insta@example.com', (SELECT id FROM account_type WHERE type_code = 'social'), 'ORD20230528001', '2023-05-28 16:45:10', 1, '已认证的Instagram账号'),
+('lol_diamond', 'lol2023!', 'lol@example.com', (SELECT id FROM account_type WHERE type_code = 'game'), 'ORD20230520001', '2023-05-20 11:22:33', 1, '英雄联盟钻石段位账号'),
+('office365_pro', 'office2023!', 'office@example.com', (SELECT id FROM account_type WHERE type_code = 'other'), 'ORD20230515001', '2023-05-15 08:30:15', 1, 'Office365专业版账号');

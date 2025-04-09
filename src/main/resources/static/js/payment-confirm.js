@@ -51,6 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentCompleteBtn = document.getElementById('payment-complete');
     if (paymentCompleteBtn) {
         paymentCompleteBtn.addEventListener('click', function() {
+            const loginStatusElement = document.getElementById('user-login-status');
+            if(!(loginStatusElement && loginStatusElement.value === 'true')){
+                return window.location.href = '/login';
+            }
             // 获取订单ID
             const oid = document.getElementById('oid').value
             // 显示检查中状态
@@ -80,7 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.location.href = data.redirectUrl || '/orders';
                     }, 200);
 
-                } else {
+                } else if(data.success==="noLogin"){
+                    return window.location.href = '/login';
+                }else {
                   // 未检测到支付
                     paymentCompleteBtn.innerHTML = originalText;
                     paymentCompleteBtn.disabled = false;

@@ -27,6 +27,7 @@
         <span>欢迎，<a @@href="#" th:text="${session.currentUser.email}">用户</a></span>
         <a href="javascript:void(0)" id="logout-btn" class="btn btn-logout" style="background-color: #f0f0f0; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"><i class="fas fa-sign-out-alt"></i> 退出</a>
       </div>
+      <input type="hidden" id="user-login-status" th:value="${session.currentUser != null }">
     </div>
   </header>
   
