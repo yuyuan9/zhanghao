@@ -16,24 +16,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 检查用户登录状态
 function checkLoginStatus() {
-    // 这里应该是实际检查用户是否登录的代码
-    // 为了演示，我们假设用户已登录
-    const isLoggedIn = true;
+    // 后端已经处理了登录状态，此处只需处理账号显示逻辑
+    // 如果用户未登录，后端会重定向到登录页面
     
-    if (isLoggedIn) {
-        // 已登录，显示账号列表
-        document.getElementById('user-accounts').style.display = 'block';
-        document.getElementById('not-logged-in').style.display = 'none';
-        
-        // 检查是否有账号
-        const accountRows = document.querySelectorAll('#accounts-list-body tr');
-        if (accountRows.length === 0) {
-            document.getElementById('no-accounts').style.display = 'block';
-        }
+    // 检查是否有账号
+    const accountRows = document.querySelectorAll('#accounts-list-body tr');
+    
+    // 更新账号数量显示
+    document.querySelector('.account-count').textContent = accountRows.length;
+    
+    if (accountRows.length === 0) {
+        // 如果没有账号，显示无账号提示，隐藏表格
+        document.getElementById('no-accounts').style.display = 'block';
+        document.querySelector('.accounts-table-container').style.display = 'none';
     } else {
-        // 未登录，显示登录提示
-        document.getElementById('user-accounts').style.display = 'none';
-        document.getElementById('not-logged-in').style.display = 'block';
+        // 有账号，显示表格，隐藏无账号提示
+//        document.getElementById('no-accounts').style.display = 'none';
+        document.querySelector('.accounts-table-container').style.display = 'block';
     }
 }
 
@@ -223,4 +222,4 @@ function copyToClipboard(text) {
     
     // 移除临时元素
     document.body.removeChild(textarea);
-} 
+}

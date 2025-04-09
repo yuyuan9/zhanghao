@@ -35,9 +35,9 @@ INSERT INTO account_type (type_code, type_name, description, sort_order, enabled
 ('other', '其他账号', '其他类型的账号，如Office365等', 4, true);
 
 -- 示例购买账号数据
-INSERT INTO purchased_account (account_name, account_password, auxiliary_email, account_type_id, order_number, purchase_time, user_id, remarks) VALUES
-('wangzhe_123456', 'game2023!', 'wangzhe@example.com', (SELECT id FROM account_type WHERE type_code = 'game'), 'ORD20230615001', '2023-06-15 14:30:25', 1, '王者荣耀账号，已验证'),
-('netflix_premium', 'netflix2023', 'netflix@example.com', (SELECT id FROM account_type WHERE type_code = 'streaming'), 'ORD20230610001', '2023-06-10 09:15:42', 1, 'Netflix高级会员账号'),
-('instagram_verified', 'insta2023!', 'insta@example.com', (SELECT id FROM account_type WHERE type_code = 'social'), 'ORD20230528001', '2023-05-28 16:45:10', 1, '已认证的Instagram账号'),
-('lol_diamond', 'lol2023!', 'lol@example.com', (SELECT id FROM account_type WHERE type_code = 'game'), 'ORD20230520001', '2023-05-20 11:22:33', 1, '英雄联盟钻石段位账号'),
-('office365_pro', 'office2023!', 'office@example.com', (SELECT id FROM account_type WHERE type_code = 'other'), 'ORD20230515001', '2023-05-15 08:30:15', 1, 'Office365专业版账号');
+INSERT INTO purchased_account (account_name, account_password, auxiliary_email, account_type, order_number, purchase_time, user_id, remarks) VALUES
+('wangzhe_123456', 'game2023!', 'wangzhe@example.com', 'game', 'ORD20230615001', '2023-06-15 14:30:25', 2, '王者荣耀账号，已验证'),
+('netflix_premium', 'netflix2023', 'netflix@example.com', 'streaming', 'ORD20230610001', '2023-06-10 09:15:42', 2, 'Netflix高级会员账号'),
+('instagram_verified', 'insta2023!', 'insta@example.com',  'social', 'ORD20230528001', '2023-05-28 16:45:10', 2, '已认证的Instagram账号'),
+('lol_diamond', 'lol2023!', 'lol@example.com',  'game', 'ORD20230520001', '2023-05-20 11:22:33', 2, '英雄联盟钻石段位账号'),
+('office365_pro', 'office2023!', 'office@example.com', 'other', 'ORD20230515001', '2023-05-15 08:30:15', 2, 'Office365专业版账号');

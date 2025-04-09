@@ -42,7 +42,7 @@
                 <div class="accounts-header">
                     <div class="accounts-title">
                         <h2>我的账号列表</h2>
-                        <p>您已购买 <span class="account-count">5</span> 个账号</p>
+                        <p>您已购买 <span class="account-count" th:text="${purchasedAccounts.size()}">5</span> 个账号</p>
                     </div>
                     
                     <div class="accounts-actions">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 
-                <div class="accounts-table-container">
+                <div class="accounts-table-container" th:if="${!purchasedAccounts.isEmpty()}">
                     <table class="accounts-table">
                         <thead>
                             <tr>
@@ -87,92 +87,20 @@
                             </tr>
                         </thead>
                         <tbody id="accounts-list-body">
-                            <tr data-type="game">
-                                <td>wangzhe_123456</td>
+                            <tr th:each="account : ${purchasedAccounts}" th:data-type="${account.accountType}">
+                                <td th:text="${account.accountName}">wangzhe_123456</td>
                                 <td class="password-cell">
                                     <span class="masked-password">••••••••</span>
-                                    <button class="toggle-password-btn" data-password="game2023!">
+                                    <button class="toggle-password-btn" th:data-password="${account.accountPassword}">
                                         <i class="far fa-eye"></i>
                                     </button>
                                 </td>
-                                <td>wangzhe@example.com</td>
-                                <td>游戏账号</td>
-                                <td>ORD20230615001</td>
-                                <td>2023-06-15 14:30:25</td>
+                                <td th:text="${account.auxiliaryEmail}">wangzhe@example.com</td>
+                                <td th:text="${account.accountType}">游戏账号</td>
+                                <td th:text="${account.orderNumber}">ORD20230615001</td>
+                                <td th:text="${#temporals.format(account.purchaseTime, 'yyyy-MM-dd HH:mm:ss')}">2023-06-15 14:30:25</td>
                                 <td>
-                                    <button class="copy-all-btn" data-account="wangzhe_123456" data-password="game2023!">
-                                        <i class="far fa-copy"></i> 复制信息
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr data-type="streaming">
-                                <td>netflix_premium</td>
-                                <td class="password-cell">
-                                    <span class="masked-password">••••••••</span>
-                                    <button class="toggle-password-btn" data-password="netflix2023">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                </td>
-                                <td>netflix@example.com</td>
-                                <td>流媒体账号</td>
-                                <td>ORD20230610001</td>
-                                <td>2023-06-10 09:15:42</td>
-                                <td>
-                                    <button class="copy-all-btn" data-account="netflix_premium" data-password="netflix2023">
-                                        <i class="far fa-copy"></i> 复制信息
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr data-type="social">
-                                <td>instagram_verified</td>
-                                <td class="password-cell">
-                                    <span class="masked-password">••••••••</span>
-                                    <button class="toggle-password-btn" data-password="insta2023!">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                </td>
-                                <td>insta@example.com</td>
-                                <td>社交媒体账号</td>
-                                <td>ORD20230528001</td>
-                                <td>2023-05-28 16:45:10</td>
-                                <td>
-                                    <button class="copy-all-btn" data-account="instagram_verified" data-password="insta2023!">
-                                        <i class="far fa-copy"></i> 复制信息
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr data-type="game">
-                                <td>lol_diamond</td>
-                                <td class="password-cell">
-                                    <span class="masked-password">••••••••</span>
-                                    <button class="toggle-password-btn" data-password="lol2023!">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                </td>
-                                <td>lol@example.com</td>
-                                <td>游戏账号</td>
-                                <td>ORD20230520001</td>
-                                <td>2023-05-20 11:22:33</td>
-                                <td>
-                                    <button class="copy-all-btn" data-account="lol_diamond" data-password="lol2023!">
-                                        <i class="far fa-copy"></i> 复制信息
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr data-type="other">
-                                <td>office365_pro</td>
-                                <td class="password-cell">
-                                    <span class="masked-password">••••••••</span>
-                                    <button class="toggle-password-btn" data-password="office2023!">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                </td>
-                                <td>office@example.com</td>
-                                <td>其他账号</td>
-                                <td>ORD20230515001</td>
-                                <td>2023-05-15 08:30:15</td>
-                                <td>
-                                    <button class="copy-all-btn" data-account="office365_pro" data-password="office2023!">
+                                    <button class="copy-all-btn" th:data-account="${account.accountName}" th:data-password="${account.accountPassword}">
                                         <i class="far fa-copy"></i> 复制信息
                                     </button>
                                 </td>
@@ -181,13 +109,13 @@
                     </table>
                 </div>
                 
-                <div class="no-accounts" id="no-accounts" style="display: none;">
+                <div class="no-accounts" id="no-accounts" th:if="${purchasedAccounts.isEmpty()}">
                     <div class="no-accounts-icon">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
                     <h3>暂无购买记录</h3>
                     <p>您还没有购买任何账号</p>
-                    <a href="accounts.html" class="btn btn-primary">浏览账号商城</a>
+                    <a th:href="@{/accounts}" class="btn btn-primary">浏览账号商城</a>
                 </div>
             </div>
         </div>
@@ -196,6 +124,6 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 
     <script th:src="@{js/main.js}"></script>
-    <script th:src="@{js/orders.js}"></script>
+    <script th:src="@{js/orders.js?v=1}"></script>
 </body>
-</html> 
+</html>
