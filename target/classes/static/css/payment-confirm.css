@@ -1,0 +1,273 @@
+/* 支付确认页面样式 */
+.payment-section {
+    padding: 30px 0; /* 减少上下边距，使内容更紧凑 */
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 180px);
+}
+
+.payment-container {
+    max-width: 900px; /* 增加容器宽度，使用两列布局 */
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.payment-title {
+    background-color: #4a6bff;
+    color: white;
+    padding: 15px; /* 减小内边距 */
+    text-align: center;
+    margin: 0;
+    font-size: 20px; /* 稍微减小字体大小 */
+    font-weight: 600;
+}
+
+.payment-box {
+    padding: 25px; /* 减小内边距 */
+}
+
+/* 新增：两列布局 */
+.payment-layout {
+    display: flex;
+    flex-wrap: wrap; /* 在小屏幕上允许换行 */
+    gap: 20px;
+}
+
+.payment-left {
+    flex: 1;
+    min-width: 300px; /* 最小宽度确保内容不会被挤压太多 */
+}
+
+.payment-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 内容分散对齐 */
+}
+
+.payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 减少元素间距 */
+}
+
+.payment-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 18px; /* 减小字体大小 */
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 15px;
+}
+
+.payment-amount .label {
+    font-weight: 500;
+    color: #555;
+    font-size: 15px;
+}
+
+.payment-amount .amount {
+    font-weight: 700;
+    color: #e74c3c;
+}
+
+.payment-amount .amount i {
+    color: #f39c12;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.payment-amount .currency-rate {
+    color: #888;
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.payment-address {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px; /* 添加底部边距 */
+}
+
+.payment-address .label {
+    font-weight: 500;
+    color: #555;
+    font-size: 15px;
+}
+
+.address-container {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 10px 12px; /* 减小内边距 */
+}
+
+.address-container .address {
+    flex: 1;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px; /* 减小字体大小 */
+    word-break: break-all;
+    color: #333;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: #4a6bff;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+.copy-btn:hover {
+    color: #3a5bef;
+    transform: scale(1.1);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+.payment-qrcode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px; /* 减小内边距 */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.qrcode-image {
+    width: 150px; /* 减小二维码大小 */
+    height: 150px;
+    display: block;
+    border: 1px solid #ddd;
+    padding: 4px;
+    background-color: white;
+}
+
+.qrcode-scan-tip {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    margin: 0;
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px; /* 添加底部边距 */
+}
+
+.payment-details > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.payment-details i {
+    color: #4a6bff;
+    width: 16px;
+    text-align: center;
+}
+
+.payment-details strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.payment-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px 12px; /* 减小内边距 */
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 15px; /* 添加底部边距 */
+}
+
+.payment-timer i {
+    font-size: 14px;
+}
+
+.payment-timer p {
+    margin: 0;
+}
+
+.payment-timer strong {
+    font-weight: 700;
+}
+
+.payment-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 减小按钮间距 */
+}
+
+/* 调整按钮样式 */
+.btn-lg {
+    padding: 12px 20px;
+    font-size: 15px; /* 稍微减小字体大小 */
+    font-weight: 600;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-outline {
+    color: #4a6bff;
+    border-color: #4a6bff;
+}
+
+.btn-outline:hover {
+    background-color: #4a6bff;
+    color: white;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .payment-layout {
+        flex-direction: column; /* 在较小屏幕上改为垂直布局 */
+    }
+    
+    .payment-right, .payment-left {
+        width: 100%;
+    }
+    
+    .payment-container {
+        max-width: 550px; /* 在小屏幕上恢复窄容器 */
+    }
+    
+    .qrcode-image {
+        width: 130px; /* 在小屏幕上进一步减小 */
+        height: 130px;
+    }
+} 

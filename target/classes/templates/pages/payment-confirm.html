@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="账号易购 - 安全支付页面">
+    <meta name="keywords" content="账号交易, 支付, USDT支付">
+    <title>支付确认 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/payment-confirm.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<section class="payment-section">
+
+    <input type="hidden" id="pay_tim" th:value="${tim}">
+    <input type="hidden" id="oid" th:value="${oid}">
+    <div class="container">
+        <div class="payment-container">
+            <h1 class="payment-title">购买[<span th:text="${quantity}">1</span>]</h1>
+
+            <div class="payment-box">
+                <div class="payment-layout">
+                    <!-- 左侧：支付信息和二维码 -->
+                    <div class="payment-left">
+                        <div class="payment-amount">
+                            <span class="label">支付:</span>
+                            <span class="amount"><i class="fas fa-coins"></i> <span
+                                    th:text="${amount}">1</span> USDT</span>
+                            <!--                            <span class="currency-rate" th:text="'(≈ ¥ ' + ${cnyAmount} + ')'">（≈ ¥ 333.00）</span>-->
+                        </div>
+
+                        <div class="payment-address">
+                            <span class="label">转入地址 (TRC20):</span>
+                            <div class="address-container">
+                                <span class="address" id="wallet-address" th:text="${walletAddress}">TFwLF8JRn6YbEquqMMX5jfXWGYxCwaP8ob</span>
+                                <button class="copy-btn" id="copy-address" title="复制地址"><i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="payment-qrcode">
+                            <img th:src="${qrcodeurl}" alt="USDT TRC20 收款二维码" class="qrcode-image">
+                            <p class="qrcode-scan-tip">请使用TRC20网络扫描二维码支付</p>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：订单信息和操作按钮 -->
+                    <div class="payment-right">
+                        <div class="payment-details">
+                            <div class="order-info">
+                                <i class="fas fa-receipt"></i>
+                                <span>订单编号:</span>
+                                <strong th:text="${orderId}">1811567753385</strong>
+                            </div>
+                            <div class="contact-info">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>公告信息:</span>
+                                <strong th:text="${contactInfo}">@duotena</strong>
+                            </div>
+                        </div>
+
+                        <div class="payment-timer">
+                            <i class="fas fa-hourglass-half"></i>
+
+                            <p>请在 <strong id="countdown">6分23秒</strong> 内完成支付，超时订单将自动失效。</p>
+                        </div>
+
+                        <div class="payment-actions">
+                            <button class="btn btn-primary btn-lg btn-block" id="payment-complete"><i
+                                    class="fas fa-check-circle"></i> 我已完成支付
+                            </button>
+                            <button class="btn btn-outline btn-lg btn-block" id="contact-support"><i
+                                    class="fas fa-headset"></i> 联系客服
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/payment-confirm.js}"></script>
+</body>
+</html> 
