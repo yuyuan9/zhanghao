@@ -188,18 +188,19 @@ function initPurchase() {
     
     if (buyButton && agreeTerms) {
         // 处理购买按钮点击
-        buyButton.addEventListener('click', function() {
+        buyButton.addEventListener('click', function(e) {
+            // 阻止默认行为
+            e.preventDefault();
+            
             // 检查是否同意协议
             if (!agreeTerms.checked) {
-                alert('请先阅读并同意服务协议');
+                alert('请先阅读并同意服务协议和售后协议');
                 return;
             }
             
             // 检查用户是否登录
             if (!isUserLoggedIn()) {
-                // 显示登录提示弹窗
-
-                return window.location.href = '/login'
+                return window.location.href = '/login';
             }
             
             // 获取账号ID
@@ -216,50 +217,84 @@ function initPurchase() {
                 ? parseFloat(priceElement.textContent.replace('¥', '').trim()) 
                 : 0;
             
-            // 创建表单提交
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/buy/createOrder';
-            form.style.display = 'none';
+            // 设置按钮加载状态
+            setButtonLoading(this, true);
             
-            // 添加账号ID字段
-            const accountIdField = document.createElement('input');
-            accountIdField.type = 'hidden';
-            accountIdField.name = 'accountId';
-            accountIdField.value = accountId;
-            form.appendChild(accountIdField);
-            
-            // 添加数量字段
-            const quantityField = document.createElement('input');
-            quantityField.type = 'hidden';
-            quantityField.name = 'quantity';
-            quantityField.value = quantity;
-            form.appendChild(quantityField);
-            
-            // 添加总价字段
-            const totalPriceField = document.createElement('input');
-            totalPriceField.type = 'hidden';
-            totalPriceField.name = 'totalPrice';
-            totalPriceField.value = totalPrice;
-            form.appendChild(totalPriceField);
-            
-            // 添加CSRF令牌（如果使用Spring Security）
-            const csrfToken = document.querySelector('meta[name="_csrf"]');
-            const csrfHeader = document.querySelector('meta[name="_csrf_header"]');
-            
-            if (csrfToken && csrfHeader) {
-                const csrfField = document.createElement('input');
-                csrfField.type = 'hidden';
-                csrfField.name = csrfHeader.content.replace('X-', '');
-                csrfField.value = csrfToken.content;
-                form.appendChild(csrfField);
-            }
-            
-            // 添加表单到文档并提交
-            document.body.appendChild(form);
-            form.submit();
+            // 提交购买表单
+            submitPurchaseForm(accountId, quantity, totalPrice, this);
         });
     }
+}
+
+// 设置按钮加载状态
+function setButtonLoading(button, isLoading) {
+    if (isLoading) {
+        // 保存原始文本
+        button.setAttribute('data-original-text', button.textContent);
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>订单创建中，请耐心等待...</span>';
+//        button.classList.add('btn-loading');
+//        button.disabled = true;
+    } else {
+        // 恢复原始文本
+        const originalText = button.getAttribute('data-original-text');
+        if (originalText) {
+            button.textContent = originalText;
+        }
+//        button.classList.remove('btn-loading');
+//        button.disabled = false;
+    }
+}
+
+// 提交购买表单
+function submitPurchaseForm(accountId, quantity, totalPrice, button) {
+    // 创建表单提交
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/buy/createOrder';
+    form.style.display = 'none';
+    
+    // 添加账号ID字段
+    const accountIdField = document.createElement('input');
+    accountIdField.type = 'hidden';
+    accountIdField.name = 'accountId';
+    accountIdField.value = accountId;
+    form.appendChild(accountIdField);
+    
+    // 添加数量字段
+    const quantityField = document.createElement('input');
+    quantityField.type = 'hidden';
+    quantityField.name = 'quantity';
+    quantityField.value = quantity;
+    form.appendChild(quantityField);
+    
+    // 添加总价字段
+    const totalPriceField = document.createElement('input');
+    totalPriceField.type = 'hidden';
+    totalPriceField.name = 'totalPrice';
+    totalPriceField.value = totalPrice;
+    form.appendChild(totalPriceField);
+    
+    // 添加CSRF令牌（如果使用Spring Security）
+    const csrfToken = document.querySelector('meta[name="_csrf"]');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]');
+    
+    if (csrfToken && csrfHeader) {
+        const csrfField = document.createElement('input');
+        csrfField.type = 'hidden';
+        csrfField.name = csrfHeader.content.replace('X-', '');
+        csrfField.value = csrfToken.content;
+        form.appendChild(csrfField);
+    }
+    
+    // 添加表单到文档
+    document.body.appendChild(form);
+    
+    // 1s后恢复按钮状态
+    const loadingTimeout = setTimeout(() => {
+        setButtonLoading(button, false);
+    }, 2000); // 2秒后超时
+    // 提交表单
+    form.submit();
 }
 
 // 初始化相关推荐账号卡片

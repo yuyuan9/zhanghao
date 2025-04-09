@@ -1500,4 +1500,146 @@
 
 .btn-share:hover {
     background-color: #e9ecef;
+}
+
+/* 购买按钮加载状态 */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+    background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%) !important;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 15px rgba(74, 107, 255, 0.5);
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    margin-left: -12px;
+    margin-top: -12px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(74, 107, 255, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(74, 107, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 107, 255, 0); }
+}
+
+/* 按钮文本样式 */
+.btn-loading span {
+    position: relative;
+    z-index: 1;
+    color: #ffffff !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 订单状态消息样式 */
+#order-status-container {
+    display: none;
+    margin-top: 15px;
+}
+
+.order-status-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #f8f9ff;
+    border-radius: 8px;
+    border: 1px dashed #dde1ff;
+    color: #4a6bff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.order-status-message i {
+    font-size: 16px;
+}
+
+/* 订单确认样式 */
+.order-confirm-message {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 15px;
+    border: 1px solid #e6eaff;
+}
+
+.order-confirm-message h4 {
+    margin: 0 0 15px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.order-confirm-message h4:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+}
+
+.order-info {
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #f8f9ff;
+    border-radius: 8px;
+}
+
+.order-info p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.order-info p strong {
+    color: #333;
+    margin-right: 5px;
+    display: inline-block;
+    width: 50px;
+}
+
+.order-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0e0;
 } 
