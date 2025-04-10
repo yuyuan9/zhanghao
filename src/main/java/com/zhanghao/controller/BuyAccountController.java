@@ -1,24 +1,24 @@
 package com.zhanghao.controller;
 
 import com.zhanghao.dto.ApiResponse;
-import com.zhanghao.entity.Account;
-import com.zhanghao.entity.Order;
-import com.zhanghao.entity.User;
+import com.zhanghao.entity.*;
+import com.zhanghao.repository.AccountForSaleRepository;
 import com.zhanghao.repository.OrderRepository;
 import com.zhanghao.service.AccountService;
 import com.zhanghao.service.BuyAccountService;
 
+import com.zhanghao.service.PurchasedAccountService;
 import com.zhanghao.util.PaymentApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * 购买账号controller
@@ -35,6 +35,12 @@ public class BuyAccountController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    private PurchasedAccountService purchasedAccountService;
+
+    @Autowired
+    AccountForSaleRepository accountForSaleRepository;
 
     /**
      * 创建订单
@@ -69,7 +75,7 @@ public class BuyAccountController {
         totalPrice = account.getPrice().multiply(new BigDecimal(quantity));
 
         // 创建订单
-        Order order = buyAccountService.createOrder(accountId, quantity, totalPrice, session);
+        Order order = buyAccountService.createOrder(account.getCategory(), accountId, quantity, totalPrice, session);
 
         // 生成钱包地址（实际应用中应该从配置或服务中获取）
         String walletAddress = "TFwLF8JRn6YbEquqMMX5jfXWGYxCwaP8ob";
@@ -130,7 +136,7 @@ public class BuyAccountController {
         // 这里应该调用服务来检查支付状态
         if (PaymentApiClient.tronusdtCheck(oid)) {
             //支付成功发送账号
-
+            buyAccountService.successPayment(oid, user);
             result.put("success", true);
         } else {
             result.put("success", false);

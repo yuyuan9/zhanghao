@@ -22,5 +22,7 @@ public interface PurchasedAccountService {
      */
     List<PurchasedAccount> getPurchasedAccountsByUserId(Long userId);
 
+    void saveAll(List<PurchasedAccount> purchasedAccounts)    ;
+
 
 }

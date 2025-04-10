@@ -23,7 +23,13 @@ public class PurchasedAccountServiceImpl implements PurchasedAccountService {
 
     @Override
     public List<PurchasedAccount> getPurchasedAccountsByUserId(Long userId) {
+
         return purchasedAccountRepository.findByUserId(userId);
+    }
+
+    @Override
+    public void saveAll(List<PurchasedAccount> purchasedAccounts) {
+
     }
 
 }

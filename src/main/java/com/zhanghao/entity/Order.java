@@ -63,4 +63,9 @@ public class Order {
     private Integer quantity;
     @Column(name = "account_id", length = 20)
     private Long accountId;
+
+
+
+    @Column(name = "category", length = 20)
+    private String category;
 }
