@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" th:content="${metaDescription}">
+    <meta name="keywords" th:content="${metaKeywords}">
+    <title th:text="${title}">文章标题 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/faq.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 文章详情页样式 */
+        .article-detail-section {
+            padding: 60px 0;
+        }
+        
+        .article-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .article-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .article-main {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .article-header {
+            padding: 30px 30px 20px;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta-item i {
+            margin-right: 5px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+        }
+        
+        .article-content {
+            padding: 30px;
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin: 30px 0 15px;
+        }
+        
+        .article-content h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 25px 0 15px;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .article-content a {
+            color: #4a6bff;
+            text-decoration: underline;
+        }
+        
+        .article-content a:hover {
+            color: #3a5bef;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #4a6bff;
+            padding: 15px 20px;
+            background-color: #f9f9f9;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .article-content code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #e83e8c;
+        }
+        
+        .article-content pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #333;
+        }
+        
+        .article-footer {
+            padding: 20px 30px 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .article-tags {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .article-tag {
+            background-color: #f0f4ff;
+            color: #4a6bff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+        
+        .article-tag:hover {
+            background-color: #4a6bff;
+            color: white;
+        }
+        
+        .article-share {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .share-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .share-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .share-wechat {
+            background-color: #07c160;
+        }
+        
+        .share-weibo {
+            background-color: #e6162d;
+        }
+        
+        .share-qq {
+            background-color: #12b7f5;
+        }
+        
+        /* 侧边栏样式 */
+        .article-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .sidebar-widget {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #4a6bff;
+        }
+        
+        /* 推荐账号样式 */
+        .recommended-accounts {
+            margin-top: 60px;
+        }
+        
+        .recommended-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .account-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .account-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .account-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .account-header {
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .account-type {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .account-price {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .account-body {
+            padding: 20px;
+        }
+        
+        .account-features {
+            margin-bottom: 20px;
+        }
+        
+        .account-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .account-feature i {
+            color: #4a6bff;
+            margin-right: 10px;
+        }
+        
+        .account-action {
+            text-align: center;
+        }
+        
+        .btn-buy {
+            background-color: #4a6bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-buy:hover {
+            background-color: #3a5bef;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<section class="article-detail-section">
+    <div class="container">
+        <div class="article-container">
+            <div class="article-main">
+                <div class="article-header">
+                    <h1 class="article-title" th:text="${article.title}">文章标题</h1>
+                    <div class="article-meta">
+                        <div class="article-meta-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span th:text="${#temporals.format(article.createTime, 'yyyy-MM-dd')}">2023-01-01</span>
+                        </div>
+                        <div class="article-meta-item">
+                            <i class="far fa-eye"></i>
+                            <span th:text="${article.viewCount}">100</span> 次阅读
+                        </div>
+                        <div class="article-meta-item">
+                            <i class="far fa-folder"></i>
+                            <span th:text="${article.category}">分类</span>
+                        </div>
+                    </div>
+<!--                    <img class="article-cover" th:src="${article.thumbnail}" alt="文章封面图">-->
+                </div>
+                <div class="article-content" th:utext="${article.content}">
+                    <!-- 文章内容 -->
+                    <p>文章内容...</p>
+                </div>
+                <div class="article-footer">
+                    <div class="article-tags">
+                        <a href="#" class="article-tag">Google账号</a>
+                        <a href="#" class="article-tag">账号安全</a>
+                        <a href="#" class="article-tag">教程</a>
+                    </div>
+                    <div class="article-share">
+                        <a href="#" class="share-button share-wechat">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                        <a href="#" class="share-button share-weibo">
+                            <i class="fab fa-weibo"></i>
+                        </a>
+                        <a href="#" class="share-button share-qq">
+                            <i class="fab fa-qq"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-sidebar">
+                <!-- 账号推荐 -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">账号推荐</h3>
+                    <p>我们提供安全可靠的Google账号，无需繁琐注册流程，即买即用：</p>
+                    <div class="support-buttons" style="margin-top: 15px;">
+                        <a th:href="@{/accounts(category='social')}" class="btn btn-primary">查看Google账号</a>
+                    </div>
+                </div>
+                
+                <!-- 相关文章 -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">相关文章</h3>
+                    <ul class="related-articles">
+                        <li><a href="#">如何保护您的Google账号安全</a></li>
+                        <li><a href="#">Gmail邮箱使用技巧大全</a></li>
+                        <li><a href="#">Google账号被封禁怎么办</a></li>
+                        <li><a href="#">如何设置Google两步验证</a></li>
+                        <li><a href="#">Google账号常见问题解答</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+<!--        &lt;!&ndash; 推荐账号 &ndash;&gt;-->
+<!--        <div class="recommended-accounts">-->
+<!--            <h2 class="recommended-title">推荐账号</h2>-->
+<!--            <div class="account-list">-->
+<!--                <div class="account-card" th:each="account : ${recommendedAccounts}">-->
+<!--                    <div class="account-header">-->
+<!--                        <div class="account-type" th:text="${account.name}">Google账号</div>-->
+<!--                        <div class="account-price" th:text="'¥' + ${account.price}">¥99</div>-->
+<!--                    </div>-->
+<!--                    <div class="account-body">-->
+<!--                        <div class="account-features">-->
+<!--                            <div class="account-feature">-->
+<!--                                <i class="fas fa-check-circle"></i>-->
+<!--                                <span>安全可靠，即买即用</span>-->
+<!--                            </div>-->
+<!--                            <div class="account-feature">-->
+<!--                                <i class="fas fa-check-circle"></i>-->
+<!--                                <span>7天售后保障</span>-->
+<!--                            </div>-->
+<!--                            <div class="account-feature">-->
+<!--                                <i class="fas fa-check-circle"></i>-->
+<!--                                <span>支持修改密码和绑定信息</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="account-action">-->
+<!--                            <a th:href="@{'/account-detail/' + ${account.id}}" class="btn-buy">立即购买</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -60,8 +60,8 @@ public class HomeController {
 
     @GetMapping("/faq")
     public String faq(Model model) {
-        model.addAttribute("title", "常见问题");
-        return "pages/faq";
+        // 重定向到文章列表页面，提升SEO效果
+        return "redirect:/articles";
     }
 
     @GetMapping("/contact")
@@ -77,4 +77,4 @@ public class HomeController {
         return "pages/payment";
     }
 
-} 
+}

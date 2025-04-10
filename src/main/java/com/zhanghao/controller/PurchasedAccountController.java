@@ -36,7 +36,7 @@ public class PurchasedAccountController {
             List<PurchasedAccount> purchasedAccounts = purchasedAccountService.getPurchasedAccountsByUserId(user.getId());
             model.addAttribute("purchasedAccounts", purchasedAccounts);
         } else {
-            return "/login";
+            return "pages/login";
         }
         return "pages/orders";
     }

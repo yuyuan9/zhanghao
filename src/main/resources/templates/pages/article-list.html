@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Google账号使用教程，了解如何正确使用和管理Google账号，解决常见问题">
+    <meta name="keywords" content="Google账号, 账号教程, Gmail使用, 账号安全, Google服务">
+    <meta name="description" th:content="${metaDescription}" th:if="${metaDescription != null}">
+    <meta name="keywords" th:content="${metaKeywords}" th:if="${metaKeywords != null}">
+    <title th:text="${title}">Google账号使用教程 - 账号易购</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/faq.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 文章列表样式 */
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .article-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 移除文章缩略图相关样式 */
+        
+        .article-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .article-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .article-summary {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #999;
+            margin-top: auto;
+        }
+        
+        .article-category {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: #f0f4ff;
+            color: #4a6bff;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 15px;
+            text-transform: capitalize;
+        }
+        
+        /* 美化文章卡片 */
+        .article-card {
+            position: relative;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .article-card:hover {
+            border-left-color: #4a6bff;
+        }
+        
+        /* 根据分类设置不同颜色 */
+        .article-card[data-category="tutorial"] .article-category {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .article-card[data-category="security"] .article-category {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .article-card[data-category="tips"] .article-category {
+            background-color: #fff8e1;
+            color: #ffa000;
+        }
+        
+        .article-card[data-category="faq"] .article-category {
+            background-color: #f3e5f5;
+            color: #8e24aa;
+        }
+        
+        .article-date {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .article-date i {
+            margin-right: 5px;
+        }
+        
+        .article-views {
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-views i {
+            margin-right: 5px;
+        }
+        
+        /* 分页样式 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .pagination-list {
+            display: flex;
+            list-style: none;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .pagination-item {
+            margin: 0;
+        }
+        
+        .pagination-link {
+            display: block;
+            padding: 12px 18px;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-link:hover {
+            background-color: #f0f4ff;
+            color: #4a6bff;
+        }
+        
+        .pagination-link.active {
+            background-color: #4a6bff;
+            color: white;
+        }
+        
+        .pagination-link.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* 侧边栏样式 */
+        .article-sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #4a6bff;
+        }
+        
+        .hot-article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .hot-article-item {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .hot-article-thumbnail {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .hot-article-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 默认图片样式 */
+        .default-thumbnail {
+            background-color: #f5f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .default-thumbnail i {
+            font-size: 24px;
+            color: #4a6bff;
+        }
+        
+        .hot-article-info {
+            flex: 1;
+        }
+        
+        .hot-article-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .hot-article-views {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hot-article-views i {
+            margin-right: 5px;
+            font-size: 10px;
+        }
+        
+        /* 分类和搜索区域 */
+        .article-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background-color: #f0f4ff;
+            color: #4a6bff;
+        }
+        
+        .tab.active {
+            background-color: #4a6bff;
+            color: white;
+        }
+        
+        .search-box {
+            display: flex;
+            width: 300px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 14px;
+        }
+        
+        .search-box button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box button:hover {
+            background-color: #3a5bef;
+        }
+        
+        /* 响应式布局 */
+        @media (max-width: 768px) {
+            .article-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .article-thumbnail {
+                width: 100%;
+                height: 180px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .article-filters {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .category-tabs {
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+        
+        /* 两列布局 */
+        .article-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .article-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Google账号使用教程</h1>
+        <p>了解如何正确使用和管理Google账号，解决常见问题</p>
+    </div>
+</section>
+
+<section class="article-section">
+<!--    <div class="container">-->
+<!--        <div class="article-filters">-->
+<!--            <div class="category-tabs">-->
+<!--                <a th:href="@{/articles}" class="tab" th:classappend="${currentCategory == null ? 'active' : ''}">全部文章</a>-->
+<!--                <a th:href="@{/articles(category='tutorial')}" class="tab" th:classappend="${currentCategory == 'tutorial' ? 'active' : ''}">使用教程</a>-->
+<!--                <a th:href="@{/articles(category='security')}" class="tab" th:classappend="${currentCategory == 'security' ? 'active' : ''}">账号安全</a>-->
+<!--                <a th:href="@{/articles(category='tips')}" class="tab" th:classappend="${currentCategory == 'tips' ? 'active' : ''}">使用技巧</a>-->
+<!--                <a th:href="@{/articles(category='faq')}" class="tab" th:classappend="${currentCategory == 'faq' ? 'active' : ''}">常见问题</a>-->
+<!--            </div>-->
+
+<!--            <form th:action="@{/articles}" method="get" class="search-box">-->
+<!--                <input type="text" name="keyword" th:value="${searchKeyword}" placeholder="搜索文章...">-->
+<!--                <button type="submit"><i class="fas fa-search"></i></button>-->
+<!--            </form>-->
+<!--        </div>-->
+
+        <div class="article-container">
+            <div class="article-main">
+                <!-- 文章列表 -->
+                <div class="article-list" th:if="${!articles.empty}">
+                    <div class="article-card" th:each="article : ${articles}" th:data-category="${article.category}">
+                        <div class="article-content">
+                            <a th:href="@{'/articles/' + ${article.slug}}">
+                                <h3 class="article-title" th:text="${article.title}">文章标题</h3>
+                            </a>
+                            <p class="article-summary" th:text="${article.summary}">文章摘要...</p>
+                            <div class="article-meta">
+                                <span class="article-category" th:text="${article.category}">分类</span>
+                                <div class="article-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span th:text="${#temporals.format(article.createTime, 'yyyy-MM-dd')}">2023-01-01</span>
+                                </div>
+                                <div class="article-views">
+                                    <i class="far fa-eye"></i>
+                                    <span th:text="${article.viewCount}">100</span> 次阅读
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 无结果提示 -->
+                <div class="no-results" th:if="${articles.empty}">
+                    <p th:if="${searchKeyword != null}">没有找到与"<span th:text="${searchKeyword}"></span>"相关的文章。</p>
+                    <p th:if="${searchKeyword == null && currentCategory != null}">该分类下暂无文章。</p>
+                    <p th:if="${searchKeyword == null && currentCategory == null}">暂无文章。</p>
+                    <p>您可以尝试其他关键词或分类，或者<a th:href="@{/articles}">查看所有文章</a>。</p>
+                </div>
+
+                <!-- 分页 -->
+                <div class="pagination" th:if="${totalPages > 1}">
+                    <ul class="pagination-list">
+                        <!-- 上一页 -->
+                        <li class="pagination-item">
+                            <a th:href="@{/articles(page=${currentPage - 1}, size=20, category=${currentCategory}, keyword=${searchKeyword})}"
+                               class="pagination-link" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </li>
+                        
+                        <!-- 页码 -->
+                        <li class="pagination-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                            th:if="${i == 0 || i == totalPages - 1 || (i >= currentPage - 1 && i <= currentPage + 1)}">
+                            <a th:href="@{/articles(page=${i}, size=20, category=${currentCategory}, keyword=${searchKeyword})}"
+                               class="pagination-link" th:classappend="${currentPage == i ? 'active' : ''}" 
+                               th:text="${i + 1}">1</a>
+                        </li>
+                        
+                        <!-- 省略号 -->
+                        <li class="pagination-item" th:if="${currentPage > 2 && totalPages > 5}">
+                            <span class="pagination-link disabled" th:if="${currentPage > 2}">...</span>
+                        </li>
+                        
+                        <!-- 省略号 -->
+                        <li class="pagination-item" th:if="${currentPage < totalPages - 3 && totalPages > 5}">
+                            <span class="pagination-link disabled">...</span>
+                        </li>
+                        
+                        <!-- 下一页 -->
+                        <li class="pagination-item">
+                            <a th:href="@{/articles(page=${currentPage + 1}, size=20, category=${currentCategory}, keyword=${searchKeyword})}"
+                               class="pagination-link" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="article-sidebar">
+                <!-- 热门文章 -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">热门文章</h3>
+                    <div class="hot-article-list">
+                        <div class="hot-article-item" th:each="hotArticle : ${hotArticles}">
+                            <div class="hot-article-thumbnail">
+                                <a th:href="@{'/articles/' + ${hotArticle.slug}}">
+                                    <img th:if="${hotArticle.thumbnail != null && !hotArticle.thumbnail.isEmpty()}" th:src="${hotArticle.thumbnail}" alt="热门文章缩略图">
+                                    <div th:if="${hotArticle.thumbnail == null || hotArticle.thumbnail.isEmpty()}" class="default-thumbnail">
+                                        <i class="fas fa-newspaper"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="hot-article-info">
+                                <a th:href="@{'/articles/' + ${hotArticle.slug}}">
+                                    <h4 class="hot-article-title" th:text="${hotArticle.title}">热门文章标题</h4>
+                                </a>
+                                <div class="hot-article-views">
+                                    <i class="far fa-eye"></i>
+                                    <span th:text="${hotArticle.viewCount}">100</span> 次阅读
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 账号推荐 -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">账号推荐</h3>
+                    <p>我们提供安全可靠的Google账号，无需繁琐注册流程，即买即用：</p>
+                    <div class="support-buttons" style="margin-top: 15px;">
+                        <a th:href="@{/accounts(category='social')}" class="btn btn-primary">查看Google账号</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
