@@ -17,17 +17,22 @@ function initPasswordToggle() {
     
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const input = this.previousElementSibling;
+            // 获取当前按钮所在的input-with-icon容器
+            const container = this.parentElement;
+            // 在容器中查找密码输入框
+            const input = container.querySelector('input[type="password"], input[type="text"]');
             
-            // 切换密码显示/隐藏
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
+            if (input) {
+                // 切换密码显示/隐藏
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
             }
         });
     });
@@ -173,4 +178,4 @@ function initCaptchaRefresh() {
             this.src = 'images/captcha.jpg?' + new Date().getTime();
         });
     }
-} 
+}

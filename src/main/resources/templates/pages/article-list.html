@@ -213,57 +213,45 @@
         .hot-article-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
         }
         
         .hot-article-item {
             display: flex;
-            gap: 15px;
+            padding: 10px 0 10px 25px; /* 增加左侧内边距，为序号留出更多空间 */
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
         }
         
-        .hot-article-thumbnail {
-            width: 80px;
-            height: 60px;
-            border-radius: 5px;
-            overflow: hidden;
-            flex-shrink: 0;
+        .hot-article-item:last-child {
+            border-bottom: none;
         }
         
-        .hot-article-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* 默认图片样式 */
-        .default-thumbnail {
-            background-color: #f5f7ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .default-thumbnail i {
-            font-size: 24px;
-            color: #4a6bff;
+        .hot-article-item:hover {
+            background-color: #f9faff;
         }
         
         .hot-article-info {
             flex: 1;
+            padding-right: 5px;
+            padding-left: 5px; /* 添加左侧内边距 */
         }
         
         .hot-article-title {
             font-size: 14px;
             font-weight: 500;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             color: #333;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            line-height: 1.4;
+        }
+        
+        .hot-article-item:hover .hot-article-title {
+            color: #4a6bff;
         }
         
         .hot-article-views {
@@ -275,7 +263,28 @@
         
         .hot-article-views i {
             margin-right: 5px;
-            font-size: 10px;
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        .hot-article-count {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a6bff;
+            font-size: 16px;
+            font-weight: 700;
+            width: 25px;
+            text-align: center;
+        }
+        
+        .hot-article-item:nth-child(1) .hot-article-count,
+        .hot-article-item:nth-child(2) .hot-article-count,
+        .hot-article-item:nth-child(3) .hot-article-count {
+            color: #4a6bff;
+            font-size: 18px;
+            font-weight: 800;
         }
         
         /* 分类和搜索区域 */
@@ -373,11 +382,24 @@
             display: grid;
             grid-template-columns: 1fr 300px;
             gap: 30px;
+            padding-left: 50px; /* 增加左侧空白边距 */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .article-main {
+            padding-left: 30px; /* 增加文章主内容区域的左侧内边距 */
         }
         
         @media (max-width: 992px) {
             .article-container {
                 grid-template-columns: 1fr;
+                padding-left: 20px; /* 在移动设备上保持适当的左侧空白 */
+                padding-right: 20px; /* 添加右侧空白以保持对称 */
+            }
+            
+            .article-main {
+                padding-left: 15px; /* 在移动设备上保持适当的文章主内容区域的左侧内边距 */
             }
         }
     </style>
@@ -385,29 +407,8 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<section class="page-header">
-    <div class="container">
-        <h1>Google账号使用教程</h1>
-        <p>了解如何正确使用和管理Google账号，解决常见问题</p>
-    </div>
-</section>
-
 <section class="article-section">
-<!--    <div class="container">-->
-<!--        <div class="article-filters">-->
-<!--            <div class="category-tabs">-->
-<!--                <a th:href="@{/articles}" class="tab" th:classappend="${currentCategory == null ? 'active' : ''}">全部文章</a>-->
-<!--                <a th:href="@{/articles(category='tutorial')}" class="tab" th:classappend="${currentCategory == 'tutorial' ? 'active' : ''}">使用教程</a>-->
-<!--                <a th:href="@{/articles(category='security')}" class="tab" th:classappend="${currentCategory == 'security' ? 'active' : ''}">账号安全</a>-->
-<!--                <a th:href="@{/articles(category='tips')}" class="tab" th:classappend="${currentCategory == 'tips' ? 'active' : ''}">使用技巧</a>-->
-<!--                <a th:href="@{/articles(category='faq')}" class="tab" th:classappend="${currentCategory == 'faq' ? 'active' : ''}">常见问题</a>-->
-<!--            </div>-->
 
-<!--            <form th:action="@{/articles}" method="get" class="search-box">-->
-<!--                <input type="text" name="keyword" th:value="${searchKeyword}" placeholder="搜索文章...">-->
-<!--                <button type="submit"><i class="fas fa-search"></i></button>-->
-<!--            </form>-->
-<!--        </div>-->
 
         <div class="article-container">
             <div class="article-main">
@@ -487,15 +488,8 @@
                 <div class="sidebar-widget">
                     <h3 class="sidebar-title">热门文章</h3>
                     <div class="hot-article-list">
-                        <div class="hot-article-item" th:each="hotArticle : ${hotArticles}">
-                            <div class="hot-article-thumbnail">
-                                <a th:href="@{'/articles/' + ${hotArticle.slug}}">
-                                    <img th:if="${hotArticle.thumbnail != null && !hotArticle.thumbnail.isEmpty()}" th:src="${hotArticle.thumbnail}" alt="热门文章缩略图">
-                                    <div th:if="${hotArticle.thumbnail == null || hotArticle.thumbnail.isEmpty()}" class="default-thumbnail">
-                                        <i class="fas fa-newspaper"></i>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="hot-article-item" th:each="hotArticle, stat : ${hotArticles}">
+                            <span class="hot-article-count" th:text="${stat.count}">1</span>
                             <div class="hot-article-info">
                                 <a th:href="@{'/articles/' + ${hotArticle.slug}}">
                                     <h4 class="hot-article-title" th:text="${hotArticle.title}">热门文章标题</h4>

@@ -12,15 +12,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleButtons = document.querySelectorAll('.toggle-password');
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
+            // 获取当前按钮所在的input-with-icon容器
+            const container = this.parentElement;
+            // 在容器中查找密码输入框
+            const input = container.querySelector('input[type="password"], input[type="text"]');
+            
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
             }
         });
     });
@@ -48,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 验证密码
         const password = document.getElementById('password').value;
         if (!validatePassword(password)) {
-            showError('password', '密码必须至少包含8个字符，且包含字母和数字');
+            showError('password', '密码长度必须至少为6位');
             isValid = false;
         }
         
@@ -221,7 +227,7 @@ function setupFormValidation() {
         }
         
         if (!validatePassword(password)) {
-            showError('password', '密码必须至少包含8个字符，且包含字母和数字');
+            showError('password', '密码长度必须至少为6位');
             return;
         }
         
@@ -330,8 +336,8 @@ function validateEmail(email) {
 
 // 验证密码格式
 function validatePassword(password) {
-    // 密码必须至少8位，包含字母和数字
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    // 密码必须至少6位
+    const passwordRegex = /^.{6,}$/;
     return passwordRegex.test(password);
 }
 
@@ -375,4 +381,4 @@ function clearAllErrors() {
     
     // 移除所有错误样式
     document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-} 
+}

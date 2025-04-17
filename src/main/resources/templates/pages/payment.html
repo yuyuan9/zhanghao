@@ -6,9 +6,368 @@
     <meta name="description" content="了解如何使用USDT进行安全支付，购买您心仪的账号">
     <meta name="keywords" content="USDT支付, 加密货币支付, 账号交易, 支付教程">
     <title>支付说明 - 账号易购</title>
-    <link rel="stylesheet" th:href="@{css/style.css}">
-    <link rel="stylesheet" th:href="@{css/payment.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/payment.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 增强页面排版的额外样式 */
+        .payment-guide {
+            padding: 80px 0;
+            background-color: #f9faff;
+            background-image: linear-gradient(135deg, #f9faff 0%, #f0f4ff 100%);
+        }
+        
+        .payment-intro {
+            border-left: 4px solid #4a6bff;
+            transition: all 0.3s ease;
+            padding: 25px 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(74, 107, 255, 0.05);
+            margin-bottom: 50px;
+        }
+        
+        .payment-intro h2 {
+            margin-top: 0;
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .payment-intro h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+        }
+        
+        .payment-intro:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-steps h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .payment-steps h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .step-item {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .step-item:hover {
+            border-left-color: #4a6bff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            font-size: 32px;
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            box-shadow: 0 5px 15px rgba(107, 74, 255, 0.3);
+            z-index: 1;
+        }
+        
+        .step-content {
+            padding: 30px 25px 25px;
+            position: relative;
+        }
+        
+        .step-content h3 {
+            color: #4a6bff;
+            font-size: 22px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .step-image {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .step-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        
+        .step-item:hover .step-image img {
+            transform: scale(1.05);
+        }
+        
+        .payment-networks {
+            margin-top: 70px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .payment-networks h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .payment-networks h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+        }
+        
+        .networks-grid {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .network-item {
+            border-top: 3px solid transparent;
+            background-color: #f9faff;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .network-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .network-item:nth-child(1) {
+            border-top-color: #ff6b4a;
+        }
+        
+        .network-item:nth-child(2) {
+            border-top-color: #4a6bff;
+        }
+        
+        .network-item:nth-child(3) {
+            border-top-color: #ffb800;
+        }
+        
+        .network-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .network-icon img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+        
+        .network-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .network-warning {
+            margin-top: 30px;
+            background-color: #fff8e6;
+            border-left: 4px solid #ffb800;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .network-warning i {
+            font-size: 24px;
+            color: #ffb800;
+        }
+        
+        .payment-support {
+            background: linear-gradient(to right, #f9faff, #f0f4ff);
+            border-radius: 15px;
+            padding: 50px;
+            margin-top: 70px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(74, 107, 255, 0.1);
+        }
+        
+        .payment-support h2 {
+            margin-bottom: 25px;
+            font-size: 28px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .payment-support h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+        }
+        
+        .support-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .support-buttons .btn {
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        
+        .support-buttons .btn-primary {
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+            border: none;
+            color: white;
+            box-shadow: 0 5px 15px rgba(107, 74, 255, 0.3);
+        }
+        
+        .support-buttons .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(107, 74, 255, 0.4);
+        }
+        
+        .support-buttons .btn-outline {
+            border: 2px solid #4a6bff;
+            color: #4a6bff;
+            background: transparent;
+        }
+        
+        .support-buttons .btn-outline:hover {
+            background-color: #4a6bff;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .support-info {
+            margin-top: 40px !important;
+            display: flex;
+            justify-content: center;
+            gap: 50px !important;
+            flex-wrap: wrap;
+        }
+        
+        .support-item {
+            text-align: center;
+            background-color: white;
+            padding: 25px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            width: 180px;
+        }
+        
+        .support-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .support-item i {
+            font-size: 28px !important;
+            color: #4a6bff !important;
+            margin-bottom: 15px !important;
+            background: linear-gradient(135deg, #4a6bff 0%, #6b4aff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @media (max-width: 768px) {
+            .payment-guide {
+                padding: 60px 0;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .step-content {
+                padding: 25px 20px 20px;
+            }
+            
+            .payment-networks,
+            .payment-support {
+                padding: 30px 20px;
+            }
+            
+            .networks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .support-info {
+                gap: 20px !important;
+            }
+            
+            .support-item {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -37,7 +396,7 @@
                             <h3>准备USDT</h3>
                             <p>您需要先在加密货币交易所（如币安、火币等）购买USDT，或者从其他钱包转入USDT到您的钱包中。</p>
                             <div class="step-image">
-                                <img src="images/payment-step1.jpg" alt="准备USDT">
+                                <img src="https://cdn.pixabay.com/photo/2018/01/18/07/31/bitcoin-3089728_1280.jpg" alt="准备USDT">
                             </div>
                         </div>
                     </div>
@@ -48,7 +407,7 @@
                             <h3>选择账号并下单</h3>
                             <p>在我们的平台上选择您心仪的账号，点击"立即购买"按钮，进入订单确认页面。</p>
                             <div class="step-image">
-                                <img src="images/payment-step2.jpg" alt="选择账号并下单">
+                                <img src="https://cdn.pixabay.com/photo/2017/12/22/13/16/shopping-cart-3033746_1280.jpg" alt="选择账号并下单">
                             </div>
                         </div>
                     </div>
@@ -59,7 +418,7 @@
                             <h3>获取收款地址</h3>
                             <p>在订单确认页面，您将看到我们的USDT收款地址和二维码，请仔细核对金额和地址。</p>
                             <div class="step-image">
-                                <img src="images/payment-step3.jpg" alt="获取收款地址">
+                                <img src="https://cdn.pixabay.com/photo/2018/05/17/21/26/cryptocurrency-3409723_1280.jpg" alt="获取收款地址">
                             </div>
                         </div>
                     </div>
@@ -70,7 +429,7 @@
                             <h3>转账支付</h3>
                             <p>打开您的USDT钱包，扫描二维码或手动输入收款地址，输入正确的金额，确认转账。</p>
                             <div class="step-image">
-                                <img src="images/payment-step4.jpg" alt="转账支付">
+                                <img src="https://cdn.pixabay.com/photo/2017/12/17/14/12/bitcoin-3024279_1280.jpg" alt="转账支付">
                             </div>
                         </div>
                     </div>
@@ -81,7 +440,7 @@
                             <h3>等待确认</h3>
                             <p>转账成功后，请耐心等待区块链网络确认，通常需要几分钟时间。我们的系统会自动检测到您的付款。</p>
                             <div class="step-image">
-                                <img src="images/payment-step5.jpg" alt="等待确认">
+                                <img src="https://cdn.pixabay.com/photo/2018/01/28/10/08/purchase-3113198_1280.jpg" alt="等待确认">
                             </div>
                         </div>
                     </div>
@@ -92,7 +451,7 @@
                             <h3>获取账号</h3>
                             <p>支付确认后，您将立即收到账号信息，可以在"我的订单"页面查看和管理您购买的账号。</p>
                             <div class="step-image">
-                                <img src="images/payment-step6.jpg" alt="获取账号">
+                                <img src="https://cdn.pixabay.com/photo/2017/10/24/07/12/hacker-2883632_1280.jpg" alt="获取账号">
                             </div>
                         </div>
                     </div>
@@ -106,7 +465,7 @@
                 <div class="networks-grid">
                     <div class="network-item">
                         <div class="network-icon">
-                            <img src="images/trc20.png" alt="TRC20">
+                            <img src="https://cdn.pixabay.com/photo/2021/05/24/09/15/tron-logo-6278766_1280.png" alt="TRC20">
                         </div>
                         <div class="network-info">
                             <h3>TRC20</h3>
@@ -116,7 +475,7 @@
                     
                     <div class="network-item">
                         <div class="network-icon">
-                            <img src="images/erc20.png" alt="ERC20">
+                            <img src="https://cdn.pixabay.com/photo/2021/04/30/16/47/ethereum-6219937_1280.png" alt="ERC20">
                         </div>
                         <div class="network-info">
                             <h3>ERC20</h3>
@@ -126,7 +485,7 @@
                     
                     <div class="network-item">
                         <div class="network-icon">
-                            <img src="images/bep20.png" alt="BEP20">
+                            <img src="https://cdn.pixabay.com/photo/2021/05/03/16/16/bnb-6226897_1280.png" alt="BEP20">
                         </div>
                         <div class="network-info">
                             <h3>BEP20</h3>
@@ -141,75 +500,7 @@
                 </div>
             </div>
             
-            <div class="payment-faq">
-                <h2>常见问题</h2>
-                
-                <div class="faq-items">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>如何获取USDT？</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>您可以通过以下方式获取USDT：</p>
-                            <ul>
-                                <li>在加密货币交易所（如币安、火币、OKX等）购买</li>
-                                <li>通过场外交易（OTC）购买</li>
-                                <li>从其他人那里接收转账</li>
-                            </ul>
-                            <p>如果您是加密货币新手，我们建议您使用币安等大型交易所，它们提供了简单的购买流程和详细的教程。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>转账需要多长时间？</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>转账时间取决于您选择的网络和当前网络拥堵情况：</p>
-                            <ul>
-                                <li>TRC20网络：通常在1-5分钟内确认</li>
-                                <li>BEP20网络：通常在1-3分钟内确认</li>
-                                <li>ERC20网络：可能需要5-30分钟，在网络拥堵时可能更长</li>
-                            </ul>
-                            <p>我们的系统会自动监测转账，一旦确认，您将立即收到通知。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>转账手续费是多少？</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>转账手续费由区块链网络收取，不同网络的手续费不同：</p>
-                            <ul>
-                                <li>TRC20网络：通常不到1 USDT</li>
-                                <li>BEP20网络：通常不到1 USDT</li>
-                                <li>ERC20网络：根据以太坊网络拥堵情况，可能从几美元到几十美元不等</li>
-                            </ul>
-                            <p>我们平台不额外收取任何手续费。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>如果我转错了怎么办？</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>如果您转错了金额或地址，请立即联系我们的客服。根据情况不同，我们会尽力帮助您解决问题：</p>
-                            <ul>
-                                <li>金额不足：您可以再次转账补足差额</li>
-                                <li>金额超出：多余的金额将被退还到您的账户</li>
-                                <li>转错地址：如果是转到了我们的其他地址，我们可以帮您处理；如果是转到了非我们平台的地址，可能无法追回</li>
-                            </ul>
-                            <p>为避免出错，请务必仔细核对地址和金额后再确认转账。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- 常见问题部分已移除 -->
             
             <div class="payment-support">
                 <h2>需要帮助？</h2>
@@ -219,13 +510,31 @@
                     <a href="#" class="btn btn-primary"><i class="fas fa-comments"></i> 在线客服</a>
                     <a href="#" class="btn btn-outline"><i class="fas fa-envelope"></i> 发送邮件</a>
                 </div>
+                
+                <div class="support-info" style="margin-top: 30px; display: flex; justify-content: center; gap: 40px;">
+                    <div class="support-item" style="text-align: center;">
+                        <i class="fas fa-clock" style="font-size: 24px; color: #4a6bff; margin-bottom: 10px;"></i>
+                        <p style="font-weight: 500; margin-bottom: 5px;">服务时间</p>
+                        <p style="color: #666; font-size: 14px;">7*24小时全天候服务</p>
+                    </div>
+                    <div class="support-item" style="text-align: center;">
+                        <i class="fas fa-shield-alt" style="font-size: 24px; color: #4a6bff; margin-bottom: 10px;"></i>
+                        <p style="font-weight: 500; margin-bottom: 5px;">安全保障</p>
+                        <p style="color: #666; font-size: 14px;">交易安全有保障</p>
+                    </div>
+                    <div class="support-item" style="text-align: center;">
+                        <i class="fas fa-headset" style="font-size: 24px; color: #4a6bff; margin-bottom: 10px;"></i>
+                        <p style="font-weight: 500; margin-bottom: 5px;">专业客服</p>
+                        <p style="color: #666; font-size: 14px;">专业团队为您服务</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-    <script th:src="@{js/main.js}"></script>
-    <script th:src="@{js/payment.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/payment.js}"></script>
 </body>
-</html> 
+</html>

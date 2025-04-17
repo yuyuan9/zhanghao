@@ -15,8 +15,8 @@ public class RegisterRequest {
     private String email;
     
     @NotBlank(message = "密码不能为空")
-    @Size(min = 8, message = "密码长度不能少于8个字符")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "密码必须包含字母和数字")
+    @Size(min = 6, message = "密码长度不能少于6个字符")
+//    @Pattern(regexp = "/^.{6,}$/", message = "密码必须6位数")
     private String password;
     
     @NotBlank(message = "验证码不能为空")

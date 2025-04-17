@@ -9,26 +9,45 @@
     <link rel="stylesheet" th:href="@{css/style.css}">
     <link rel="stylesheet" th:href="@{css/about.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-    <section class="page-header">
+    <section class="page-header animate__animated animate__fadeIn">
         <div class="container">
-            <h1>关于我们</h1>
-            <p>了解账号易购的团队、使命和价值观</p>
+            <h1 class="animate__animated animate__fadeInDown animate__delay-1s">关于我们</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">了解账号易购的团队、使命和价值观</p>
+        </div>
+        <div class="header-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
         </div>
     </section>
 
     <section class="about-intro">
         <div class="container">
-            <div class="about-content">
+            <div class="about-content wow animate__animated animate__fadeInLeft">
                 <h2>我们是谁</h2>
-                <p>账号易购成立于2020年，是一家专注于账号交易服务的创新型科技公司。我们致力于为用户提供安全、便捷、可靠的账号交易平台，涵盖游戏账号、社交媒体账号、流媒体账号等多种类型。</p>
+                <p>账号易购成立于2020年，是一家专注于账号交易服务的创新型科技公司。我们致力于为用户提供<span class="highlight">安全</span>、<span class="highlight">便捷</span>、<span class="highlight">可靠</span>的账号交易平台，涵盖游戏账号、社交媒体账号、流媒体账号等多种类型。</p>
                 <p>作为行业领先的账号交易平台，我们拥有专业的技术团队和客服团队，确保每一笔交易的安全和用户的满意度。我们的使命是通过技术创新和优质服务，重新定义账号交易体验。</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-label">满意用户</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.8%</div>
+                        <div class="stat-label">交易成功率</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">客户支持</div>
+                    </div>
+                </div>
             </div>
-            <div class="about-image">
-                <img src="images/about-team.jpg" alt="账号易购团队">
+            <div class="about-image wow animate__animated animate__fadeInRight">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="账号易购团队">
             </div>
         </div>
     </section>
@@ -142,35 +161,52 @@
 
     <section class="our-team">
         <div class="container">
-            <h2>我们的团队</h2>
+            <h2 class="section-title animate__animated animate__fadeInDown">我们的精英团队</h2>
+            <p class="section-subtitle animate__animated animate__fadeInUp">由行业专家组成的团队，致力于为您提供最优质的服务</p>
             <div class="team-grid">
-                <div class="team-member">
+                <div class="team-member animate__animated animate__fadeInUp animate__delay-1s">
                     <div class="member-photo">
-                        <img src="images/team-member1.jpg" alt="张总经理">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="张总经理">
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
                     </div>
                     <h3>张总经理</h3>
                     <p class="member-title">创始人 & CEO</p>
                     <p class="member-desc">拥有10年互联网行业经验，曾任多家知名科技公司高管，对账号交易行业有深入的研究和理解。</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member animate__animated animate__fadeInUp animate__delay-2s">
                     <div class="member-photo">
-                        <img src="images/team-member2.jpg" alt="李技术总监">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="李技术总监">
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
                     <h3>李技术总监</h3>
                     <p class="member-title">CTO</p>
                     <p class="member-desc">资深技术专家，拥有丰富的系统架构和安全防护经验，负责平台的技术研发和安全保障。</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member animate__animated animate__fadeInUp animate__delay-3s">
                     <div class="member-photo">
-                        <img src="images/team-member3.jpg" alt="王运营总监">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="王运营总监">
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
                     </div>
                     <h3>王运营总监</h3>
                     <p class="member-title">COO</p>
                     <p class="member-desc">营销和运营专家，拥有丰富的用户增长和品牌建设经验，负责平台的市场推广和用户运营。</p>
                 </div>
-                <div class="team-member">
+                <div class="team-member animate__animated animate__fadeInUp animate__delay-4s">
                     <div class="member-photo">
-                        <img src="images/team-member4.jpg" alt="赵客服总监">
+                        <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="赵客服总监">
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        </div>
                     </div>
                     <h3>赵客服总监</h3>
                     <p class="member-title">客户服务总监</p>
@@ -260,33 +296,79 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <h3>给我们留言</h3>
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="name">您的姓名</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">电子邮箱</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">主题</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">留言内容</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">提交留言</button>
-                    </form>
-                </div>
+<!--                <div class="contact-form">-->
+<!--                    <h3>给我们留言</h3>-->
+<!--                    <form action="#" method="post">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="name">您的姓名</label>-->
+<!--                            <input type="text" id="name" name="name" required>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="email">电子邮箱</label>-->
+<!--                            <input type="email" id="email" name="email" required>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="subject">主题</label>-->
+<!--                            <input type="text" id="subject" name="subject" required>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="message">留言内容</label>-->
+<!--                            <textarea id="message" name="message" rows="5" required></textarea>-->
+<!--                        </div>-->
+<!--                        <button type="submit" class="btn btn-primary">提交留言</button>-->
+<!--                    </form>-->
+<!--                </div>-->
             </div>
         </div>
     </section>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
     <script th:src="@{js/main.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+        
+        // 数字滚动动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const value = target.innerText;
+                        if (value.includes('+')) {
+                            const numValue = parseInt(value.replace(/,/g, '').replace(/\+/g, ''));
+                            animateValue(target, 0, numValue, 2000, '+');
+                        } else if (value.includes('%')) {
+                            const numValue = parseFloat(value.replace(/,/g, '').replace(/%/g, ''));
+                            animateValue(target, 0, numValue, 2000, '%');
+                        } else {
+                            target.classList.add('animate__animated', 'animate__fadeIn');
+                        }
+                        observer.unobserve(target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            statNumbers.forEach(number => {
+                observer.observe(number);
+            });
+            
+            function animateValue(obj, start, end, duration, suffix = '') {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    obj.innerText = value + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+        });
+    </script>
 </body>
-</html> 
+</html>
